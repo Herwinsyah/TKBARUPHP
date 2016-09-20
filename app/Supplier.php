@@ -20,7 +20,7 @@ class Supplier extends Model
     protected $table = 'supplier';
 
     protected $fillable = [
-        'supplier_name', 'supplier_address', 'supplier_city', 'remarks',
+        'supplier_name', 'supplier_address', 'supplier_city', 'phone_number', 'fax_num', 'tax_id', 'status', 'remarks',
     ];
 
 }
