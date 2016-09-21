@@ -22,5 +22,7 @@ class Supplier extends Model
     protected $fillable = [
         'supplier_name', 'supplier_address', 'supplier_city', 'phone_number', 'fax_num', 'tax_id', 'status', 'remarks',
     ];
-
+    public function products(){
+        return $this->belongsToMany('App\Product', 'supplier_prod');
+    }
 }

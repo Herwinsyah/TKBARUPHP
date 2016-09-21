@@ -315,7 +315,6 @@
                                     <th>Type</th>
                                     <th>Code</th>
                                     <th>Name</th>
-                                    <th>Base Unit</th>
                                     <th>Description</th>
                                     <th>Status</th>
                                 </tr>
@@ -323,12 +322,11 @@
                             <tbody>
                                 @foreach( $products as $product)
                                 <tr>
-                                    <th>$product->type</th>
-                                    <th>$product->code</th>
-                                    <th>$product->name</th>
-                                    <th>$product->base_unit</th>
-                                    <th>$product->description</th>
-                                    <th>$product->status</th>
+                                    <th>{{$product->type}}</th>
+                                    <th>{{$product->short_code}}</th>
+                                    <th>{{$product->name}}</th>
+                                    <th>{{$product->description}}</th>
+                                    <th>{{$product->status}}</th>
                                 </tr>
                                 @endforeach
                             </tbody>

@@ -72,10 +72,11 @@ class SupplierController extends Controller
 	public function edit($id)
 	{
         $supplier = Supplier::findOrFail($id);
+        $products = $supplier->products;
         $pics = Pic::all();
         $phone_provider = PhoneProvider::all();
-        $products = Product::all();
 
+        // return $products;
         return view('suppliers.edit', compact('supplier', 'phone_provider','pics','products'));
 	}
 
