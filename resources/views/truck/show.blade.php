@@ -1,6 +1,8 @@
 @extends('layouts.adminlte.master')
 
-@section('title', 'Truck Management')
+@section('title')
+    @lang('truck.show.title')
+@endsection
 
 @section('custom_css')
     <style type="text/css">
@@ -12,9 +14,11 @@
 @endsection
 
 @section('page_title')
-    <span class="fa fa-truck fa-fw"></span>&nbsp;Truck
+    <span class="fa fa-truck fa-flip-horizontal fa-fw"></span>&nbsp;@lang('truck.show.page_title')
 @endsection
-@section('page_title_desc', '')
+@section('page_title_desc')
+    @lang('truck.show.page_title_desc')
+@endsection
 
 @section('content')
     <div class="box box-info">
@@ -24,14 +28,6 @@
         <div class="box-body">
             <form class="form-horizontal">
                 <div class="box-body">
-                    <div class="form-group">
-                        <label for="inputId" class="col-sm-2 control-label">Id</label>
-                        <div class="col-sm-10">
-                            <label id="id" class="control-label">
-                                <span class="control-label-normal">{{ $truck->id }}</span>
-                            </label>
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label for="inputPlateNumber" class="col-sm-2 control-label">@lang('truck.plate_number')</label>
                         <div class="col-sm-10">
@@ -60,7 +56,7 @@
                         <label for="inputStatus" class="col-sm-2 control-label">@lang('truck.status')</label>
                         <div class="col-sm-10">
                             <label id="status" class="control-label control-label-normal">
-                                <span class="control-label-normal">{{ $truck->status }}</span>
+                                <span class="control-label-normal">@lang('lookup.' . $truck->status)</span>
                             </label>
                         </div>
                     </div>
@@ -75,7 +71,7 @@
                     <div class="form-group">
                         <label for="inputButton" class="col-sm-2 control-label"></label>
                         <div class="col-sm-10">
-                            <a href="{{ route('db.master.truck') }}" class="btn btn-default">Back</a>
+                            <a href="{{ route('db.master.truck') }}" class="btn btn-default">@lang('buttons.show.cancel')</a>
                         </div>
                     </div>
                 </div>
