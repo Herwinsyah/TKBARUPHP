@@ -19,7 +19,6 @@ class CreatePicTable extends Migration
             $table->string('last_name');
             $table->text('address');
             $table->string('email');
-            $table->integer('phone_id');
             $table->timestamps();
         });
     }

@@ -100,6 +100,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function ()
     Route::get('/dashboard/master/supplier/edit/{id}', 'SupplierController@edit')->name('db.master.supplier.edit');
     Route::patch('/dashboard/master/supplier/edit/{id}', 'SupplierController@update')->name('db.master.supplier.update');
     Route::delete('/dashboard/master/supplier/edit/{id}', 'SupplierController@delete')->name('db.master.supplier.delete');
+    Route::post('/dashboard/master/supplier/pic/store', 'PicController@store')->name('db.master.supplier.pic.store');
 
     Route::get('/dashboard/master/product', 'ProductController@index')->name('db.master.product');
     Route::get('/dashboard/master/product/show/{id}', 'ProductController@show')->name('db.master.product.show');

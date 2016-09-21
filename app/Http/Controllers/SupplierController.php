@@ -9,7 +9,9 @@
 namespace App\Http\Controllers;
 
 use App\Supplier;
-use Validator;
+use App\Pic;
+use App\PhoneProvider;
+use App\Product;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
@@ -70,8 +72,11 @@ class SupplierController extends Controller
 	public function edit($id)
 	{
         $supplier = Supplier::findOrFail($id);
+        $pics = Pic::all();
+        $phone_provider = PhoneProvider::all();
+        $products = Product::all();
 
-        return view('suppliers.edit', compact('supplier'));
+        return view('suppliers.edit', compact('supplier', 'phone_provider','pics','products'));
 	}
 
 	public function update(Request $request, $id)

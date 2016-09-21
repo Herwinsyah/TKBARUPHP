@@ -1,0 +1,11 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Pic extends Model
+{
+    protected $table = 'pic';
+    protected $fillable = ['first_name','last_name','address','email']; 
+}

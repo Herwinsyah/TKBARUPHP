@@ -122,53 +122,40 @@
                                             <h4 class="text-left">Add PIC</h4>
                                         </div>
                                         <div class="modal-body scroller">
-                                            <form class="form-horizontal">
+                                            <form class="form-horizontal" action="{{ route('db.master.supplier.pic.store') }}" method="post">
+                                                {{ csrf_field() }}
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
-                                                            <label class="col-sm-3 control-label">Name</label>
+                                                            <label class="col-sm-2 control-label">First Name</label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" class="form-control" placeholder="first name">
-                                                                <input type="text" class="form-control" placeholder="last name">
+                                                                <input type="text" name="first_name" class="form-control" placeholder="first name">
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label class="col-sm-3 control-label">Address</label>
+                                                            <label class="col-sm-2 control-label">Last Name</label>
+                                                            <div class="col-sm-9">
+                                                                <input type="text" name="last_name" class="form-control" placeholder="last name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 control-label">Address</label>
                                                             <div class="col-sm-9">
                                                                 <textarea id="inputAddress" class="form-control" rows="5" name="address"></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label class="col-sm-3 control-label">Email</label>
+                                                            <label class="col-sm-2 control-label">Email</label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" class="form-control">
+                                                                <input type="text" name="email" class="form-control" placeholder="Email">
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label class="col-sm-3 control-label">Phone</label>
-                                                            <div class="col-sm-9">
-                                                                <div class="col-sm-4">
-                                                                    <option>
-                                                                        <select>Select-Providers</select>
-                                                                        <select>T-Sel</select>
-                                                                        <select></select>
-                                                                    </option>
-                                                                </div>
-                                                                <div class="col-sm-4">
-                                                                    <input type="text" class="form-control">
-                                                                </div>
-                                                                <div class="col-sm-4">
-                                                                    <input type="text" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        <input type="hidden" name="id" value="{{ $supplier->id }}">
                                                     </div>
                                                 </div>
+                                                <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary btn-flat">Send</button>
                                             </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary btn-flat">Send</button>
                                         </div>
                                     </div>
                                 </div>
@@ -178,18 +165,109 @@
                             <div class="panel-body">
                                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                     <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="headingOne">
+                                        @foreach($pics as $key => $pic)
+                                        <div class="panel-heading" role="tab" id="heading{{$pic->id}}">
                                               <h4 class="panel-title">
-                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                      PIC 1 - XXXXX
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$pic->id}}" aria-expanded="true" aria-controls="collapse{{$pic->id}}">
+                                                        PIC {{ ++$key }} - {{$pic->first_name}} {{$pic->last_name}}
                                                     </a>
                                               </h4>
-                                        </div>
-                                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                        </div><br>
+                                        <div id="collapse{{$pic->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                                               <div class="panel-body">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                <div class="col-sm-12">
+                                                    <div class="box-body">
+                                                        <div class="form-group">
+                                                            <label for="inputName" class="col-sm-2 control-label">First Name</label>
+                                                            <div class="col-sm-10">
+                                                                <label id="inputId" class="control-label">
+                                                                    <span class="control-label-normal">{{ $pic->first_name }}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="inputName" class="col-sm-2 control-label">Last Name</label>
+                                                            <div class="col-sm-10">
+                                                                <label id="inputId" class="control-label">
+                                                                    <span class="control-label-normal">{{ $pic->last_name }}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="inputName" class="col-sm-2 control-label">Address</label>
+                                                            <div class="col-sm-10">
+                                                                <label id="inputId" class="control-label">
+                                                                    <span class="control-label-normal">{{ $pic->address }}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="inputName" class="col-sm-2 control-label">Email</label>
+                                                            <div class="col-sm-10">
+                                                                <label id="inputId" class="control-label">
+                                                                    <span class="control-label-normal">{{ $pic->email }}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="inputName" class="col-sm-2 control-label">Phone List</label>
+                                                            <div class="col-sm-10">
+                                                                <table class="table datatable-basic table-striped table-bordered">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Provider</th>
+                                                                            <th>Number</th>
+                                                                            <th>Status</th>
+                                                                            <th>Remarks</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <th>19/20/2004</th>
+                                                                            <th>Dr. Jumadi</th>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <button class="btn btn-primary" data-toggle="modal" href='#phone-modal'><i class="fa fa-plus"></i> Add</button>
+                                                                <div class="modal fade" id="phone-modal">
+                                                                    <div class="modal-dialog fixed-footer modal-lg">
+                                                                        <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                            <h4 class="text-left">Add Phone List</h4>
+                                                                        </div>
+                                                                        <div class="modal-body scroller">
+                                                                        <form class="form-horizontal" action="{{ route('db.master.supplier.pic.store') }}" method="post">
+                                                                            {{ csrf_field() }}
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12">
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-sm-2 control-label">Phone</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <input type="text" name="first_name" class="form-control" placeholder="first name">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <input type="hidden" name="id" value="{{ $supplier->id }}">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="text-right">
+                                                                            <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Close</button>
+                                                                            <button type="submit" class="btn btn-primary btn-flat">Send</button>
+                                                                            </div>
+                                                                        </form>
+                                                                        </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                               </div>
                                         </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -234,28 +312,28 @@
                         <table class="table datatable-basic table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Tanggal</th>
-                                    <th>Dokter</th>
-                                    <th>Laboratorium</th>
-                                    <th>Hasil</th>
-                                    <th>Catatan</th>
+                                    <th>Type</th>
+                                    <th>Code</th>
+                                    <th>Name</th>
+                                    <th>Base Unit</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach( $products as $product)
                                 <tr>
-                                    <th>19/20/2004</th>
-                                    <th>Dr. Jumadi</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
+                                    <th>$product->type</th>
+                                    <th>$product->code</th>
+                                    <th>$product->name</th>
+                                    <th>$product->base_unit</th>
+                                    <th>$product->description</th>
+                                    <th>$product->status</th>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         <hr>
-
-                        <div class="pull-left">
-                            <button class="btn btn-primary"> Selesai <i class="fa fa-times"></i></button>
-                        </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                     </div>
@@ -265,21 +343,25 @@
                         <table class="table datatable-basic table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Tanggal</th>
-                                    <th>Dokter</th>
-                                    <th>Radiologi</th>
-                                    <th>Hasil</th>
-                                    <th>Catatan</th>
+                                    <th>Type</th>
+                                    <th>Code</th>
+                                    <th>Name</th>
+                                    <th>Base Unit</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach( $products as $product)
                                 <tr>
-                                    <th>19/20/2004</th>
-                                    <th>Dr. Jumadi</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
+                                    <th>$product->type</th>
+                                    <th>$product->code</th>
+                                    <th>$product->name</th>
+                                    <th>$product->base_unit</th>
+                                    <th>$product->description</th>
+                                    <th>$product->status</th>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         <hr>
