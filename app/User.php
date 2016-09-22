@@ -2,9 +2,6 @@
 
 namespace App;
 
-use \App\Profile;
-use \App\UserDetail;
-
 use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Notifications\Notifiable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
@@ -41,6 +38,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property-read \App\Store $store
  * @property-read \App\Role $role
  * @property-read \App\UserDetail $userDetail
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Settings[] $settings
  */
 class User extends Authenticatable
 {
@@ -86,5 +84,10 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsToMany('\App\Role', 'role_user', 'user_id', 'role_id');
+    }
+
+    public function settings()
+    {
+        return $this->hasMany('\App\Settings');
     }
 }
