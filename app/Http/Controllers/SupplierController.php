@@ -12,6 +12,8 @@ use App\Supplier;
 use App\Pic;
 use App\PhoneProvider;
 use App\Product;
+use App\Bank;
+use App\SupplierBank;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
@@ -75,9 +77,10 @@ class SupplierController extends Controller
         $products = $supplier->products;
         $pics = Pic::all();
         $phone_provider = PhoneProvider::all();
+        $banks = Bank::all();
+        $supplier_bank = SupplierBank::supplier($id)->get();
 
-        // return $products;
-        return view('suppliers.edit', compact('supplier', 'phone_provider','pics','products'));
+        return view('suppliers.edit', compact('supplier', 'phone_provider','pics','products','banks','supplier_bank'));
 	}
 
 	public function update(Request $request, $id)
@@ -106,4 +109,50 @@ class SupplierController extends Controller
         return redirect(route('db.master.supplier'));
 	}
 
+    public function addBank(request $request)
+    {
+        $this->validate($request,[
+            'bank_id' => 'required',
+            'account' => 'required|string|max:255',
+            'status' => 'required',
+        ]);
+        $data = [
+            'bank_id' => $request->input('bank_id'),
+            'supplier_id' => $request->input('supplier_id'),
+            'account' => $request->input('account'),
+            'remarks' => $request->input('remarks'),
+            'status' => $request->input('status'),
+        ];
+
+        SupplierBank::create($data);
+
+        return redirect('dashboard/master/supplier/edit/'.$request->input('supplier_id'));
+    }
+
+    public function editBank($id) {
+        $supplier_bank = SupplierBank::find($id);
+        $banks = Bank::all();
+
+        return view('suppliers.bank.edit', compact('supplier_bank', 'banks'));
+    }
+
+    public function updateBank(Request $request, $id) {
+        $this->validate($request,[
+            'bank_id' => 'required',
+            'account' => 'required|string|max:255',
+            'status' => 'required',
+        ]);
+
+        $supplier_bank = SupplierBank::findOrFail($id);
+
+        if ($supplier_bank) {
+            $supplier_bank->bank_id = $request->input('bank_id');
+            $supplier_bank->account = $request->input('account');
+            $supplier_bank->remarks = $request->input('remarks');
+            $supplier_bank->status = $request->input('status');
+            $supplier_bank->update();
+        }
+
+        return redirect('dashboard/master/supplier/edit/'.$supplier_bank->supplier_id);
+    }
 }

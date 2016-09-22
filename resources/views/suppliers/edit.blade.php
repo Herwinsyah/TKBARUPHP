@@ -278,26 +278,97 @@
                 </div>
                 <div class="tab-pane" id="tab-3">
                     <div class="tab-pane active" id="tab-1">
-                        <table class="table datatable-basic table-striped table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Tanggal</th>
-                                    <th>Dokter</th>
-                                    <th>Tindakan</th>
-                                    <th>Data</th>
-                                    <th>Jenis Rawat</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th>19/20/2004</th>
-                                    <th>Dr. Jumadi</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="panel-heading text-right">
+                            <button class="btn btn-primary" data-toggle="modal" href='#bank-modal'><i class="fa fa-plus"></i> Add</button>
+                            <div class="modal fade" id="bank-modal">
+                                <div class="modal-dialog fixed-footer modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="text-left">Add Bank Account</h4>
+                                        </div>
+                                        <div class="modal-body scroller">
+                                            <form class="form-horizontal" action="{{ route('db.master.supplier.bank.store') }}" method="post">
+                                                {{ csrf_field() }}
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 control-label">Bank Name</label>
+                                                            <div class="col-sm-9">
+                                                                <select name="bank_id" class="form-control">
+                                                                    @foreach($banks as $bank)
+                                                                    <option value="{{$bank->id}}">{{ $bank->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 control-label">Account</label>
+                                                            <div class="col-sm-9">
+                                                                <input type="number" name="account" class="form-control" placeholder="Bank Account Number">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 control-label">Remarks</label>
+                                                            <div class="col-sm-9">
+                                                                <input type="text" name="remarks" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 control-label">Status</label>
+                                                            <div class="col-sm-9">
+                                                                <select name="status" class="form-control">
+                                                                    <option value="1">Active</option>
+                                                                    <option value="0">Inactive</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <input type="hidden" name="supplier_id" value="{{ $supplier->id }}">
+                                                    </div>
+                                                </div>
+                                                <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary btn-flat">Send</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-body">
+                                <table class="table datatable-basic table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Bank</th>
+                                            <th>Account</th>
+                                            <th>Remarks</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach( $supplier_bank as $bank)
+                                        <tr>
+                                            <th>{{ $bank->bank->name }}</th>
+                                            <th>{{ $bank->account }}</th>
+                                            <th>{{ $bank->remarks }}</th>
+                                            @if($bank->status == 1)
+                                            <th>Active</th>
+                                            @else
+                                            <th>Inactive</th>
+                                            @endif
+                                            <th class="text-center">
+                                                <a class="btn btn-xs btn-primary" href="{{ route('db.master.supplier.bank.edit', $bank->id) }}"><span class="fa fa-pencil fa-fw"></span></a>
+                                                {!! Form::open(['method' => 'DELETE', 'route' => ['db.master.supplier.bank.delete', $bank->id], 'style'=>'display:inline'])  !!}
+                                                    <button type="submit" class="btn btn-xs btn-danger"><span class="fa fa-close fa-fw"></span></button>
+                                                {!! Form::close() !!}
+                                            </th>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                         <hr>
 
                         <div class="pull-left">
@@ -309,28 +380,32 @@
                 </div>
                 <div class="tab-pane" id="tab-4">
                     <div class="tab-pane active" id="tab-1">
-                        <table class="table datatable-basic table-striped table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Code</th>
-                                    <th>Name</th>
-                                    <th>Description</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach( $products as $product)
-                                <tr>
-                                    <th>{{$product->type}}</th>
-                                    <th>{{$product->short_code}}</th>
-                                    <th>{{$product->name}}</th>
-                                    <th>{{$product->description}}</th>
-                                    <th>{{$product->status}}</th>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div class="panel">
+                            <div class="panel-body">
+                                <table class="table datatable-basic table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Code</th>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach( $products as $product)
+                                        <tr>
+                                            <th>{{$product->type}}</th>
+                                            <th>{{$product->short_code}}</th>
+                                            <th>{{$product->name}}</th>
+                                            <th>{{$product->description}}</th>
+                                            <th>{{$product->status}}</th>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                         <hr>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -338,30 +413,34 @@
                 </div>
                 <div class="tab-pane" id="tab-5">
                     <div class="tab-pane active" id="tab-1">
-                        <table class="table datatable-basic table-striped table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Code</th>
-                                    <th>Name</th>
-                                    <th>Base Unit</th>
-                                    <th>Description</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach( $products as $product)
-                                <tr>
-                                    <th>$product->type</th>
-                                    <th>$product->code</th>
-                                    <th>$product->name</th>
-                                    <th>$product->base_unit</th>
-                                    <th>$product->description</th>
-                                    <th>$product->status</th>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div class="panel">
+                            <div class="panel-body">
+                                <table class="table datatable-basic table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Code</th>
+                                            <th>Name</th>
+                                            <th>Base Unit</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach( $products as $product)
+                                        <tr>
+                                            <th>$product->type</th>
+                                            <th>$product->code</th>
+                                            <th>$product->name</th>
+                                            <th>$product->base_unit</th>
+                                            <th>$product->description</th>
+                                            <th>$product->status</th>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                         <hr>
 
                         <div class="pull-left">
