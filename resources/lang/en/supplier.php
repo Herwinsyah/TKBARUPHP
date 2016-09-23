@@ -13,8 +13,6 @@ return [
     'index.table.header.status' => 'Status',
     'index.table.header.remarks' => 'Remarks',
     'button.title' => 'New Supplier',
-    'status.true' => 'Available',
-    'status.false' => 'Unavailable',
     'edit.title' => 'Edit Supplier',
     'edit.page' => 'Edit Supplier',
     'edit.page.tab-data' => 'Supplier Data',
@@ -49,4 +47,10 @@ return [
 
     'edit.label.setting.due-day' => 'Payment Due Day',
     'edit.label.heading.bank' => 'Edit Bank Account',
+    'create.phone.title' => 'Add Phone',
+    'create.phone.page_title' => 'Phone',
+    'create.header.title' => 'Add Phone',
+    'create.label.phone.provider' => 'Provider',
+    'create.label.phone.number' => 'Number',
+    'create.label.phone.remarks' => 'Remarks',
 ];

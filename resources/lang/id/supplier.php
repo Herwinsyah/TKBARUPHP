@@ -58,5 +58,10 @@ return [
 
     'edit.label.setting.due-day' => 'Pembayaran Hari',
     'edit.label.heading.bank' => 'Edit Akun Bank',
-    
+    'create.phone.title' => 'Tambah Telepon',
+    'create.phone.page_title' => 'Telepon',
+    'create.header.title' => 'Tambah Telepon',
+    'create.label.phone.provider' => 'Provider',
+    'create.label.phone.number' => 'Nomor',
+    'create.label.phone.remarks' => 'Catatan',
 ];

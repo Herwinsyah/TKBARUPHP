@@ -79,13 +79,15 @@ class SupplierController extends Controller
 	{
         $supplier = Supplier::findOrFail($id);
         $products = $supplier->products;
-        $pics = Pic::all();
+        $pics = $supplier->pic;
+        $phones = Pic::filter($id)->get();
         $phone_provider = PhoneProvider::all();
         $banks = Bank::all();
         $bank_account = $supplier->bank;
         $statusDDL = Lookup::where('category', '=', 'STATUS')->get()->pluck('description', 'code');
 
-        return view('suppliers.edit', compact('supplier', 'phone_provider','pics','products','banks','bank_account','statusDDL'));
+        // return $phones;
+        return view('suppliers.edit', compact('supplier', 'phone_provider','pics','products','banks','bank_account','statusDDL','phones'));
 	}
 
 	public function update(Request $request, $id)
@@ -137,8 +139,9 @@ class SupplierController extends Controller
     public function editBank($id) {
         $bank_account = BankAccount::find($id);
         $banks = Bank::all();
+        $statusDDL = Lookup::where('category', '=', 'STATUS')->get()->pluck('description', 'code');
 
-        return view('suppliers.bank.edit', compact('bank_account', 'banks'));
+        return view('suppliers.bank.edit', compact('bank_account', 'banks', 'statusDDL'));
     }
 
     public function updateBank(Request $request, $id) {

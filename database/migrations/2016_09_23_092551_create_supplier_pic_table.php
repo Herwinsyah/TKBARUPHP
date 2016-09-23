@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePicTable extends Migration
+class CreateSupplierPicTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreatePicTable extends Migration
      */
     public function up()
     {
-        Schema::create('pic', function(Blueprint $table) {
+        Schema::create('supplier_pic', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('supplier_id');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->text('address');
-            $table->string('email');
-            $table->timestamps();
+            $table->integer('pic_id');
+            //
         });
     }
 
@@ -31,6 +28,6 @@ class CreatePicTable extends Migration
      */
     public function down()
     {
-        Schema::drop('pic');
+        //
     }
 }

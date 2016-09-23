@@ -48,11 +48,7 @@
                             <td>{{ $supplier->phone_number }}</td>
                             <td>{{ $supplier->fax_num }}</td>
                             <td>{{ $supplier->tax_id }}</td>
-                            @if($supplier->status == 1)
-                            <td>@lang('supplier.status.true')</td>
-                            @else
-                            <td>@lang('supplier.status.false')</td>
-                            @endif
+                            <td class="text-center">@lang('lookup.' . $supplier->status)</td>
                             <td>{{ $supplier->remarks }}</td>
                             <td class="text-center" width="20%">
                                 <a class="btn btn-xs btn-info" href="{{ route('db.master.supplier.show', $supplier->id) }}"><span class="fa fa-info fa-fw"></span></a>

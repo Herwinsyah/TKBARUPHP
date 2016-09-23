@@ -105,9 +105,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function ()
     Route::patch('/dashboard/master/supplier/bank/edit/{id}', 'SupplierController@updateBank')->name('db.master.supplier.bank.update');
     Route::delete('/dashboard/master/supplier/bank/{id}', 'SupplierController@deleteBank')->name('db.master.supplier.bank.delete');
     Route::post('/dashboard/master/supplier/setting', 'SupplierController@addSetting')->name('db.master.supplier.setting.store');
-    Route::post('/dashboard/master/supplier/pic', 'PicController@store')->name('db.master.supplier.pic.store');
+    Route::post('/dashboard/master/supplier/{id}/pic/', 'PicController@store')->name('db.master.supplier.pic.store');
     Route::get('/dashboard/master/supplier/pic/{id}/phone/', 'PicController@createPhone')->name('db.master.supplier.pic.phone.create');
     Route::post('/dashboard/master/supplier/pic/{id}/phone/', 'PicController@storePhone')->name('db.master.supplier.pic.phone.store');
+    // Route::post('/dashboard/master/supplier/pic/{id}/phone/{phone_id}', 'PicController@storePhone')->name('db.master.supplier.pic.phone.store');
 
     Route::get('/dashboard/master/product', 'ProductController@index')->name('db.master.product');
     Route::get('/dashboard/master/product/show/{id}', 'ProductController@show')->name('db.master.product.show');

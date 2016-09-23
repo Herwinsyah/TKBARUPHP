@@ -173,23 +173,22 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        
-                                                                            @foreach($pics as $pic)
+                                                                        @foreach($phones as $phone)
+                                                                        <tr>
+                                                                            @foreach($phone->phone as $item)
+                                                                                <tr>
+                                                                            <th>{{ $item->provider->name }}</th>
+                                                                            <th>{{ $item->number }}</th>
+                                                                            <th class="text-center">@lang('lookup.' . $item->status)</th>
+                                                                            <th>{{ $item->remarks }}</th>
+                                                                            <th class="text-center">
+                                                                            <a class="btn btn-xs btn-primary" href=""><span class="fa fa-pencil fa-fw"></span></a>
+                                                                            {!! Form::open(['method' => 'DELETE', 'route' => ['db.master.supplier', ], 'style'=>'display:inline'])  !!}
+                                                                                <button type="submit" class="btn btn-xs btn-danger"><span class="fa fa-close fa-fw"></span></button>
+                                                                            {!! Form::close() !!}
+                                                                        </th>
                                                                             <tr>
-                                                                                @foreach( $pic->phone as $phone)
-                                                                                <tr>
-                                                                                <th>{{ $phone->provider->name }}</th>
-                                                                                <th>{{ $phone->number }}</th>
-                                                                                <th>{{ $phone->status }}</th>
-                                                                                <th>{{ $phone->remarks }}</th>
-                                                                                <th class="text-center">
-                                                                                <a class="btn btn-xs btn-primary" href=""><span class="fa fa-pencil fa-fw"></span></a>
-                                                                                {!! Form::open(['method' => 'DELETE', 'route' => ['db.master.supplier', ], 'style'=>'display:inline'])  !!}
-                                                                                    <button type="submit" class="btn btn-xs btn-danger"><span class="fa fa-close fa-fw"></span></button>
-                                                                                {!! Form::close() !!}
-                                                                            </th>
-                                                                                <tr>
-                                                                                @endforeach
+                                                                            @endforeach
                                                                             </tr>
                                                                             @endforeach
                                                                         
@@ -274,7 +273,7 @@
                                             <th>{{$product->short_code}}</th>
                                             <th>{{$product->name}}</th>
                                             <th>{{$product->description}}</th>
-                                            <th>{{$product->status}}</th>
+                                            <th class="text-center">@lang('lookup.' . $product->status)</th>
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -321,7 +320,7 @@
                     <h4 class="text-left">@lang('supplier.edit.modal.pic.heading')</h4>
                 </div>
                 <div class="modal-body scroller">
-                    <form class="form-horizontal" action="{{ route('db.master.supplier.pic.store') }}" method="post">
+                    <form class="form-horizontal" action="{{ route('db.master.supplier.pic.store', $supplier->id) }}" method="post">
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="col-sm-12">

@@ -28,6 +28,11 @@ class Supplier extends Model
     	return $this->belongsToMany('App\BankAccount', 'supplier_bank_account');
     }
 
+    public function pic()
+    {
+        return $this->belongsToMany('App\Pic', 'supplier_pic');
+    }
+
     public function products()
     {
         return $this->belongsToMany('App\Product', 'supplier_prod');

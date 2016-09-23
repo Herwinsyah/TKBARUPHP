@@ -21,7 +21,7 @@ class PicController extends Controller
         $this->middleware('auth');
     }
 
-	public function store(Request $request)
+	public function store(Request $request, $id)
 	{
         $this->validate($request,[
             'first_name' => 'required|string|max:255',
@@ -31,14 +31,15 @@ class PicController extends Controller
         ]);
         $id = $request->input('id');
         $data = [
+            'supplier_id' => $id,
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'address' => $request->input('address'),
             'email' => $request->input('email'),
         ];
 
-        Pic::create($data);
-
+        $pic = Pic::create($data);
+        $pic->supplier()->attach($id);
         return redirect('dashboard/master/supplier/edit/'.$id);
 
 	}
