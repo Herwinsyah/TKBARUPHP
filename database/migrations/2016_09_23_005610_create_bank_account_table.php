@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePhoneTable extends Migration
+class CreateBankAccountTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreatePhoneTable extends Migration
      */
     public function up()
     {
-        Schema::create('phone', function(Blueprint $table) {
+        Schema::create('bank_account', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('phone_provider_id');
-            $table->string('number')->unique();
-            $table->string('status');
+            $table->integer('bank_id');
+            $table->string('account_number')->unique();
             $table->string('remarks')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreatePhoneTable extends Migration
      */
     public function down()
     {
-        Schema::drop('phone');
+        Schema::drop('bank_account');
     }
 }

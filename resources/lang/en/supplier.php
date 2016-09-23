@@ -1,4 +1,4 @@
-<?php
+<?php 
 return [
     'index.title' => 'Supplier Management',
     'index.page_title' => 'Supplier',
@@ -15,4 +15,38 @@ return [
     'button.title' => 'New Supplier',
     'status.true' => 'Available',
     'status.false' => 'Unavailable',
+    'edit.title' => 'Edit Supplier',
+    'edit.page' => 'Edit Supplier',
+    'edit.page.tab-data' => 'Supplier Data',
+    'edit.page.tab-pic' => 'Person in Charge',
+    'edit.page.tab-account' => 'Bank Account',
+    'edit.page.tab-product' => 'Product List',
+    'edit.page.tab-setting' => 'Setting',
+    'edit.label.name' => 'Supplier Name',
+    'edit.label.address' => 'Address',
+    'edit.label.city' => 'City',
+    'edit.label.phone' => 'Phone',
+    'edit.label.tax' => 'Tax id',
+    'edit.label.remarks' => 'Remarks',
+
+    'edit.label.pic.first-name' => 'First Name',
+    'edit.label.pic.last-name' => 'Last Name',
+    'edit.label.pic.address' => 'Address',
+    'edit.label.pic.email' => 'Email',
+    'edit.label.pic.phone-list' => 'Phone List',
+    'edit.button.add' => 'Add',
+    'edit.modal.pic.heading' => 'Add Pic',
+    'edit.modal.bank.heading' => 'Add Bank',
+    'edit.label.bank.name' => 'Bank Name',
+    'edit.label.bank.account' => 'Account',
+    'edit.label.bank.remarks' => 'Remarks',
+    'edit.label.bank.action' => 'Action',
+
+    'edit.label.product.type' => 'Type',
+    'edit.label.product.code' => 'Code',
+    'edit.label.product.name' => 'Name',
+    'edit.label.product.description' => 'Decription',
+
+    'edit.label.setting.due-day' => 'Payment Due Day',
+    'edit.label.heading.bank' => 'Edit Bank Account',
 ];

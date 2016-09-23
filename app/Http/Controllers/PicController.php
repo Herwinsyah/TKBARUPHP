@@ -9,6 +9,9 @@
 namespace App\Http\Controllers;
 
 use App\Pic;
+use App\PhoneProvider;
+use App\PhoneNumber;
+use App\Lookup;
 use Illuminate\Http\Request;
 
 class PicController extends Controller
@@ -74,4 +77,33 @@ class PicController extends Controller
         return redirect(route('db.master.supplier'));
 	}
 
+    public function createPhone($id)
+    {
+        $pics = Pic::all();
+        $phone_provider = PhoneProvider::all();
+        $statusDDL = Lookup::where('category', '=', 'STATUS')->get()->pluck('description', 'code');
+
+        return view('suppliers.phone.create',compact('phone_provider','statusDDL'))->with('id', $id);
+    }
+
+    public function storePhone(Request $request, $id)
+    {
+        $pics = Pic::find($id);
+
+        $this->validate($request,[
+            'number' => 'required|string|max:255',
+            'status' => 'required|string',
+        ]);
+
+        $data = [
+            'phone_provider_id' => $request->provider,
+            'status' => $request->status,
+            'remarks' => $request->remarks,
+            'number' => $request->number,
+        ];
+        $phone = PhoneNumber::create($data);
+        $pics->phone()->attach($phone->id);
+
+        return redirect('dashboard/master/supplier/');
+    }
 }

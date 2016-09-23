@@ -10,10 +10,15 @@ namespace App\Http\Controllers;
 
 use App\Supplier;
 use App\Pic;
+use App\PhoneNumber;
 use App\PhoneProvider;
 use App\Product;
 use App\Bank;
-use App\SupplierBank;
+use App\BankAccount;
+use App\SupplierSetting;
+use App\Lookup;
+
+use URL;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
@@ -38,7 +43,8 @@ class SupplierController extends Controller
 
 	public function create()
 	{
-        return view('suppliers.create');
+        $statusDDL = Lookup::where('category', '=', 'STATUS')->get()->pluck('description', 'code');
+        return view('suppliers.create', compact('statusDDL'));
 	}
 
 	public function store(Request $request)
@@ -51,7 +57,6 @@ class SupplierController extends Controller
             'fax_num' => 'string|max:255',
             'tax_id' => 'required|string|max:255',
             'status' => 'required',
-            'remarks' => 'required',
         ]);
 
         $data = [
@@ -68,7 +73,6 @@ class SupplierController extends Controller
         Supplier::create($data);
 
         return redirect(route('db.master.supplier'));
-
 	}
 
 	public function edit($id)
@@ -78,9 +82,10 @@ class SupplierController extends Controller
         $pics = Pic::all();
         $phone_provider = PhoneProvider::all();
         $banks = Bank::all();
-        $supplier_bank = SupplierBank::supplier($id)->get();
+        $bank_account = $supplier->bank;
+        $statusDDL = Lookup::where('category', '=', 'STATUS')->get()->pluck('description', 'code');
 
-        return view('suppliers.edit', compact('supplier', 'phone_provider','pics','products','banks','supplier_bank'));
+        return view('suppliers.edit', compact('supplier', 'phone_provider','pics','products','banks','bank_account','statusDDL'));
 	}
 
 	public function update(Request $request, $id)
@@ -118,22 +123,22 @@ class SupplierController extends Controller
         ]);
         $data = [
             'bank_id' => $request->input('bank_id'),
-            'supplier_id' => $request->input('supplier_id'),
-            'account' => $request->input('account'),
+            'account_number' => $request->input('account'),
             'remarks' => $request->input('remarks'),
             'status' => $request->input('status'),
         ];
 
-        SupplierBank::create($data);
-
-        return redirect('dashboard/master/supplier/edit/'.$request->input('supplier_id'));
+        $supplier_id = $request->input('supplier_id');
+        $bank = BankAccount::create($data);
+        $bank->supplier()->attach($supplier_id);
+        return redirect(URL::previous());
     }
 
     public function editBank($id) {
-        $supplier_bank = SupplierBank::find($id);
+        $bank_account = BankAccount::find($id);
         $banks = Bank::all();
 
-        return view('suppliers.bank.edit', compact('supplier_bank', 'banks'));
+        return view('suppliers.bank.edit', compact('bank_account', 'banks'));
     }
 
     public function updateBank(Request $request, $id) {
@@ -143,16 +148,39 @@ class SupplierController extends Controller
             'status' => 'required',
         ]);
 
-        $supplier_bank = SupplierBank::findOrFail($id);
+        $bank_account = BankAccount::findOrFail($id);
 
-        if ($supplier_bank) {
-            $supplier_bank->bank_id = $request->input('bank_id');
-            $supplier_bank->account = $request->input('account');
-            $supplier_bank->remarks = $request->input('remarks');
-            $supplier_bank->status = $request->input('status');
-            $supplier_bank->update();
+        if ($bank_account) {
+            $bank_account->bank_id = $request->input('bank_id');
+            $bank_account->account = $request->input('account');
+            $bank_account->remarks = $request->input('remarks');
+            $bank_account->status = $request->input('status');
+            $bank_account->update();
         }
 
-        return redirect('dashboard/master/supplier/edit/'.$supplier_bank->supplier_id);
+        return redirect(URL::previous());
+    }
+
+    public function deleteBank($id)
+    {
+        $bank = BankAccount::findOrFail($id);
+        $bank->delete();
+        return redirect(URL::previous());
+    }
+
+    public function addSetting(Request $request)
+    {
+        $this->validate($request,[
+            'due_day' => 'required',
+        ]);
+
+        $data = [
+            'supplier_id' => $request->input('supplier_id'),
+            'due_day' => $request->input('due_day'),
+        ];
+
+        SupplierSetting::create($data);
+
+        return redirect(URL::previous());
     }
 }

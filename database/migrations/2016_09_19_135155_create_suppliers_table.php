@@ -22,7 +22,7 @@ class CreateSuppliersTable extends Migration
             $table->string('fax_num')->nullable();
             $table->string('tax_id')->nullable();
             $table->string('remarks');
-            $table->boolean('status');
+            $table->string('status');
             $table->timestamps();
         });
     }

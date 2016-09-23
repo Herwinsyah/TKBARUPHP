@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSupplierBankTable extends Migration
+class SupplierSetting extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateSupplierBankTable extends Migration
      */
     public function up()
     {
-        Schema::create('supplier_bank', function (Blueprint $table) {
+        Schema::create('supplier_setting', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('bank_id');
-            $table->integer('supplier_id')
-            $table->string('account')->unique();
-            $table->string('remarks')->nullable();
-            $table->boolean('status');
+            $table->integer('supplier_id');
+            $table->string('due_day');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateSupplierBankTable extends Migration
      */
     public function down()
     {
-        Schema::drop('supplier_bank');
+        Schema::drop('supplier_setting');
     }
 }
