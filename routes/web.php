@@ -94,12 +94,21 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function ()
     Route::delete('/dashboard/master/customer/edit/{id}', 'CustomerController@delete');
 
     Route::get('/dashboard/master/supplier', 'SupplierController@index')->name('db.master.supplier');
-    Route::get('/dashboard/master/supplier/show/{id}', 'SupplierController@show');
-    Route::get('/dashboard/master/supplier/create', 'SupplierController@create');
-    Route::post('/dashboard/master/supplier/create', 'SupplierController@store');
-    Route::get('/dashboard/master/supplier/edit/{id}', 'SupplierController@edit');
-    Route::patch('/dashboard/master/supplier/edit/{id}', 'SupplierController@update');
-    Route::delete('/dashboard/master/supplier/edit/{id}', 'SupplierController@delete');
+    Route::get('/dashboard/master/supplier/show/{id}', 'SupplierController@show')->name('db.master.supplier.show');
+    Route::get('/dashboard/master/supplier/create', 'SupplierController@create')->name('db.master.supplier.create');
+    Route::post('/dashboard/master/supplier/create', 'SupplierController@store')->name('db.master.supplier.store');
+    Route::get('/dashboard/master/supplier/edit/{id}', 'SupplierController@edit')->name('db.master.supplier.edit');
+    Route::patch('/dashboard/master/supplier/edit/{id}', 'SupplierController@update')->name('db.master.supplier.update');
+    Route::delete('/dashboard/master/supplier/edit/{id}', 'SupplierController@delete')->name('db.master.supplier.delete');
+    Route::post('/dashboard/master/supplier/bank', 'SupplierController@addBank')->name('db.master.supplier.bank.store');
+    Route::get('/dashboard/master/supplier/bank/edit/{id}', 'SupplierController@editBank')->name('db.master.supplier.bank.edit');
+    Route::patch('/dashboard/master/supplier/bank/edit/{id}', 'SupplierController@updateBank')->name('db.master.supplier.bank.update');
+    Route::delete('/dashboard/master/supplier/bank/{id}', 'SupplierController@deleteBank')->name('db.master.supplier.bank.delete');
+    Route::post('/dashboard/master/supplier/setting', 'SupplierController@addSetting')->name('db.master.supplier.setting.store');
+    Route::post('/dashboard/master/supplier/{id}/pic/', 'PicController@store')->name('db.master.supplier.pic.store');
+    Route::get('/dashboard/master/supplier/pic/{id}/phone/', 'PicController@createPhone')->name('db.master.supplier.pic.phone.create');
+    Route::post('/dashboard/master/supplier/pic/{id}/phone/', 'PicController@storePhone')->name('db.master.supplier.pic.phone.store');
+    // Route::post('/dashboard/master/supplier/pic/{id}/phone/{phone_id}', 'PicController@storePhone')->name('db.master.supplier.pic.phone.store');
 
     Route::get('/dashboard/master/product', 'ProductController@index')->name('db.master.product');
     Route::get('/dashboard/master/product/show/{id}', 'ProductController@show')->name('db.master.product.show');
