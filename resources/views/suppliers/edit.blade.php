@@ -119,6 +119,12 @@
                                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$pic->id}}" aria-expanded="true" aria-controls="collapse{{$pic->id}}">
                                                         PIC {{ ++$key }} - {{$pic->first_name}} {{$pic->last_name}}
                                                     </a>
+                                                    <div class="pull-right">
+                                                        <a class="btn btn-xs btn-primary" href="{{ route('db.master.supplier.pic.edit',  array('id' => $supplier->id, 'pic_id' => $pic->id)) }}"><span class="fa fa-pencil fa-fw"></span></a>
+                                                        {!! Form::open(['method' => 'DELETE', 'route' => ['db.master.supplier', ], 'style'=>'display:inline'])  !!}
+                                                            <button type="submit" class="btn btn-xs btn-danger"><span class="fa fa-close fa-fw"></span></button>
+                                                        {!! Form::close() !!}
+                                                    </div>
                                               </h4>
                                         </div><br>
                                         <div id="collapse{{$pic->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
@@ -146,14 +152,6 @@
                                                             <div class="col-sm-10">
                                                                 <label id="inputId" class="control-label">
                                                                     <span class="control-label-normal">{{ $pic->address }}</span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.label.pic.email')</label>
-                                                            <div class="col-sm-10">
-                                                                <label id="inputId" class="control-label">
-                                                                    <span class="control-label-normal">{{ $pic->email }}</span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -342,13 +340,6 @@
                                         <textarea id="inputAddress" class="form-control" rows="5" name="address"></textarea>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">@lang('supplier.edit.label.pic.email')</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" name="email" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
-                                <input type="hidden" name="id" value="{{ $supplier->id }}">
                                 <div class="pull-right">
                                     <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary btn-flat">Send</button>

@@ -100,12 +100,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function ()
     Route::get('/dashboard/master/supplier/edit/{id}', 'SupplierController@edit')->name('db.master.supplier.edit');
     Route::patch('/dashboard/master/supplier/edit/{id}', 'SupplierController@update')->name('db.master.supplier.update');
     Route::delete('/dashboard/master/supplier/edit/{id}', 'SupplierController@delete')->name('db.master.supplier.delete');
+    Route::post('/dashboard/master/supplier/{id}/add/pic', 'SupplierController@storePic')->name('db.master.supplier.pic.store');
+    Route::get('/dashboard/master/supplier/{id}/pic/edit/{pic_id}', 'SupplierController@editPic')->name('db.master.supplier.pic.edit');
+    Route::patch('/dashboard/master/supplier/pic/{pic_id}', 'SupplierController@updatePic')->name('db.master.supplier.pic.update');
     Route::post('/dashboard/master/supplier/bank', 'SupplierController@addBank')->name('db.master.supplier.bank.store');
     Route::get('/dashboard/master/supplier/bank/edit/{id}', 'SupplierController@editBank')->name('db.master.supplier.bank.edit');
     Route::patch('/dashboard/master/supplier/bank/edit/{id}', 'SupplierController@updateBank')->name('db.master.supplier.bank.update');
     Route::delete('/dashboard/master/supplier/bank/{id}', 'SupplierController@deleteBank')->name('db.master.supplier.bank.delete');
     Route::post('/dashboard/master/supplier/setting', 'SupplierController@addSetting')->name('db.master.supplier.setting.store');
-    Route::post('/dashboard/master/supplier/{id}/pic/', 'PicController@store')->name('db.master.supplier.pic.store');
     Route::get('/dashboard/master/supplier/pic/{id}/phone/', 'PicController@createPhone')->name('db.master.supplier.pic.phone.create');
     Route::post('/dashboard/master/supplier/pic/{id}/phone/', 'PicController@storePhone')->name('db.master.supplier.pic.phone.store');
     // Route::post('/dashboard/master/supplier/pic/{id}/phone/{phone_id}', 'PicController@storePhone')->name('db.master.supplier.pic.phone.store');

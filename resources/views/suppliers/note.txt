@@ -1,0 +1,90 @@
+<div class="panel panel-default">
+                                        @foreach($pics as $key => $pic)
+                                        <div class="panel-heading" role="tab" id="heading{{$pic->id}}">
+                                              <h4 class="panel-title">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$pic->id}}" aria-expanded="true" aria-controls="collapse{{$pic->id}}">
+                                                        PIC {{ ++$key }} - {{$pic->first_name}} {{$pic->last_name}}
+                                                    </a>
+                                              </h4>
+                                        </div><br>
+                                        <div id="collapse{{$pic->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                              <div class="panel-body">
+                                                <div class="col-sm-12">
+                                                    <div class="box-body">
+                                                        <div class="form-group">
+                                                            <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.label.pic.first-name')</label>
+                                                            <div class="col-sm-10">
+                                                                <label id="inputId" class="control-label">
+                                                                    <span class="control-label-normal">{{ $pic->first_name }}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.label.pic.last-name')</label>
+                                                            <div class="col-sm-10">
+                                                                <label id="inputId" class="control-label">
+                                                                    <span class="control-label-normal">{{ $pic->last_name }}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.label.pic.address')</label>
+                                                            <div class="col-sm-10">
+                                                                <label id="inputId" class="control-label">
+                                                                    <span class="control-label-normal">{{ $pic->address }}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.label.pic.email')</label>
+                                                            <div class="col-sm-10">
+                                                                <label id="inputId" class="control-label">
+                                                                    <span class="control-label-normal">{{ $pic->email }}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.label.pic.phone-list')</label>
+                                                            <div class="col-sm-10">
+                                                                <a href="{{ route('db.master.supplier.pic.phone.create', $pic->id) }}">
+                                                                    <button class="btn btn-primary"><i class="fa fa-plus"></i> @lang('supplier.edit.button.add')</button></a>
+                                                                <table class="table datatable-basic table-striped table-bordered">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Provider</th>
+                                                                            <th>Number</th>
+                                                                            <th>Status</th>
+                                                                            <th>Remarks</th>
+                                                                            <th>Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach($phones as $phone)
+                                                                        <tr>
+                                                                            @foreach($phone->phone as $item)
+                                                                                <tr>
+                                                                            <th>{{ $item->provider->name }}</th>
+                                                                            <th>{{ $item->number }}</th>
+                                                                            <th class="text-center">@lang('lookup.' . $item->status)</th>
+                                                                            <th>{{ $item->remarks }}</th>
+                                                                            <th class="text-center">
+                                                                            <a class="btn btn-xs btn-primary" href=""><span class="fa fa-pencil fa-fw"></span></a>
+                                                                            {!! Form::open(['method' => 'DELETE', 'route' => ['db.master.supplier', ], 'style'=>'display:inline'])  !!}
+                                                                                <button type="submit" class="btn btn-xs btn-danger"><span class="fa fa-close fa-fw"></span></button>
+                                                                            {!! Form::close() !!}
+                                                                        </th>
+                                                                            <tr>
+                                                                            @endforeach
+                                                                            </tr>
+                                                                            @endforeach
+                                                                        
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                        </div>
+                                        @endforeach
+                                    </div>

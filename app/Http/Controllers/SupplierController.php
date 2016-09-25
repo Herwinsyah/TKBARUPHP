@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 use App\Supplier;
 use App\Pic;
+use App\Profile;
 use App\PhoneNumber;
 use App\PhoneProvider;
 use App\Product;
@@ -86,7 +87,6 @@ class SupplierController extends Controller
         $bank_account = $supplier->bank;
         $statusDDL = Lookup::where('category', '=', 'STATUS')->get()->pluck('description', 'code');
 
-        // return $phones;
         return view('suppliers.edit', compact('supplier', 'phone_provider','pics','products','banks','bank_account','statusDDL','phones'));
 	}
 
@@ -115,6 +115,56 @@ class SupplierController extends Controller
         $supplier->delete();
         return redirect(route('db.master.supplier'));
 	}
+
+    public function storePic(Request $request, $id)
+    {
+        $this->validate($request,[
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'address' => 'required|string',
+        ]);
+
+        $data = [
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'address' => $request->input('address'),
+        ];
+
+        $profile = Profile::create($data);
+        $ic = Profile::find($profile->id);
+                //To add IC num
+                $ic->ic_num = $profile->id;
+                $ic->update();
+        $supplier = Supplier::find($id);
+        $supplier->pic()->attach($profile->id);
+        return redirect('dashboard/master/supplier/edit/'.$id);
+    }
+
+    public function editPic($id, $pic_id)
+    {
+        $pic = Profile::find($pic_id);
+        // return $pic;
+        return view('suppliers.pic.edit', compact('pic','id','pic_id'));
+    }
+
+    public function updatePic(Request $request, $id, $pic_id)
+    {
+        $profile = Profile::findOrFail($pic_id);
+
+        if ($profile) {
+            $profile->first_name = $request->input('first_name');
+            $profile->last_name = $request->input('last_name');
+            $update = $profile->update();
+            $ic = Profile::find($update->id);
+                //To update IC num
+                $ic->ic_num = $update->id;
+                $ic->update();
+            $supplier = Supplier::find($id);
+            $supplier->pic()->sync($update->id);
+
+            return 'success';
+        }
+    }
 
     public function addBank(request $request)
     {

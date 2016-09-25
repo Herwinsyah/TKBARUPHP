@@ -9,7 +9,7 @@
 namespace App;
 
 use \Illuminate\Database\Eloquent\Model;
-
+ 
 /**
  * App\Supplier
  *
@@ -23,14 +23,13 @@ class Supplier extends Model
         'supplier_name', 'supplier_address', 'supplier_city', 'phone_number', 'fax_num', 'tax_id', 'status', 'remarks',
     ];
 
+    public function pic()
+    {
+        return $this->belongsToMany('App\Profile', 'supplier_pic', 'supplier_id', 'pic_id');
+    }
     public function bank()
     {
     	return $this->belongsToMany('App\BankAccount', 'supplier_bank_account');
-    }
-
-    public function pic()
-    {
-        return $this->belongsToMany('App\Pic', 'supplier_pic');
     }
 
     public function products()
