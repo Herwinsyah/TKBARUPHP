@@ -7,8 +7,13 @@
  */
 
 namespace App\Http\Controllers;
-use App\Permission;
+
+use Session;
+use Validator;
+use Illuminate\Http\Request;
+
 use App\Role;
+use App\Permission;
 
 class RolesController extends Controller
 {
@@ -42,24 +47,29 @@ class RolesController extends Controller
         if ($validator->fails()) {
             return redirect(route('db.admin.roles.create'))->withInput()->withErrors($validator);
         } else {
-            Role::create([
-                'name' => $data['name'],
-                'display_name' => $data['display_name'],
-                'description' => $data['description'],
-            ]);
+            $role = new Role;
+            $role->name = $data['name'];
+            $role->display_name = $data['display_name'];
+            $role->description = $data['description'];
+            $role->save();
+
+            foreach($data['permission'] as $pl) {
+                $role->permissionList()->attach($pl);
+            }
 
             Session::flash('success', 'New User Created');
 
-            return redirect(route('db.admin.role'));
+            return redirect(route('db.admin.roles'));
         }
     }
 
     public function edit($id)
     {
         $role = Role::find($id);
-        $permission = Permission::get();
+        $selected = $role->permissionList->pluck('id')->toArray();
+        $permission = Permission::get()->pluck('display_name', 'id');
 
-        return view('roles.edit', compact('role', 'permission'));
+        return view('roles.edit', compact('role', 'permission', 'selected'));
     }
 
     public function update($id, Request $req)
@@ -70,7 +80,28 @@ class RolesController extends Controller
             'description' => 'required',
         ]);
 
-        Role::find($id)->update($req->all());
-        return redirect(route('db.admin.role'));
+        $role = Role::whereId($id);
+        $pl = Permission::whereIn('id', $req['permission'])->get();
+
+        $role->permissionList()->sync($pl);
+
+        $role->update([
+            'name' => $req['name'],
+            'display_name' => $req['display_name'],
+            'description' => $req['description'],
+        ]);
+
+        return redirect(route('db.admin.roles'));
+    }
+
+    public function delete($id)
+    {
+        $role = Role::find($id);
+
+        $role->permissionList()->attach([]);
+
+        $role->delete();
+
+        return redirect(route('db.admin.roles'));
     }
 }
