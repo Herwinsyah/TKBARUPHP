@@ -9,7 +9,6 @@
 namespace App\Http\Controllers;
 
 use App\Supplier;
-use App\Pic;
 use App\Profile;
 use App\PhoneNumber;
 use App\PhoneProvider;
