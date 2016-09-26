@@ -81,7 +81,6 @@ class SupplierController extends Controller
         $supplier = Supplier::findOrFail($id);
         $products = $supplier->products;
         $pics = $supplier->pic;
-        $phones = Pic::filter($id)->get();
         $phone_provider = PhoneProvider::all();
         $banks = Bank::all();
         $bank_account = $supplier->bank;
@@ -154,16 +153,91 @@ class SupplierController extends Controller
         if ($profile) {
             $profile->first_name = $request->input('first_name');
             $profile->last_name = $request->input('last_name');
-            $update = $profile->update();
-            $ic = Profile::find($update->id);
-                //To update IC num
-                $ic->ic_num = $update->id;
-                $ic->update();
-            $supplier = Supplier::find($id);
-            $supplier->pic()->sync($update->id);
+            $profile->address = $request->input('address');
+            $profile->update();
 
-            return 'success';
+            return redirect('dashboard/master/supplier/edit/'.$id);
         }
+    }
+
+    public function deletePic($id, $pic_id)
+    {
+        $pic = Profile::findOrFail($pic_id);
+        $pic->delete();
+
+        $supplier = Supplier::findOrFail($id);
+        $supplier->pic()->detach($pic_id);
+
+        return redirect('dashboard/master/supplier/edit/'.$id);
+    }
+
+    public function createPhone($id, $pic_id)
+    {
+        $pics = Profile::all();
+        $phone_provider = PhoneProvider::all();
+        $statusDDL = Lookup::where('category', '=', 'STATUS')->get()->pluck('description', 'code');
+
+        return view('suppliers.phone.create',compact('phone_provider','statusDDL', 'pic_id'))->with('id', $id);
+    }
+
+    public function storePhone(Request $request, $id, $pic_id)
+    {
+        $pics = Profile::find($pic_id);
+
+        $this->validate($request,[
+            'number' => 'required|string|max:255',
+            'status' => 'required|string',
+        ]);
+
+        $data = [
+            'phone_provider_id' => $request->input('provider'),
+            'status' => $request->input('status'),
+            'remarks' => $request->input('remarks'),
+            'number' => $request->input('number'),
+        ];
+        $phone = PhoneNumber::create($data);
+        $pics->phone()->attach($phone->id);
+
+        return redirect('dashboard/master/supplier/edit/'.$id);
+    }
+
+    public function editPhone($id, $pic_id, $phone_id)
+    {
+        $phone = PhoneNumber::findOrFail($phone_id);
+        $phone_provider = PhoneProvider::all();
+        $statusDDL = Lookup::where('category', '=', 'STATUS')->get()->pluck('description', 'code');
+
+        return view('suppliers.phone.edit', compact('phone','phone_provider','statusDDL','id', 'pic_id', 'phone_id'));
+    }
+
+    public function updatePhone(Request $request, $id, $pic_id, $phone_id)
+    {
+        $phone =  PhoneNumber::findOrFail($phone_id);
+        $this->validate($request,[
+            'number' => 'required|string|max:255',
+            'status' => 'required|string',
+        ]);
+
+        if ($phone) {
+            $phone->phone_provider_id = $request->input('provider');
+            $phone->number = $request->input('number');
+            $phone->status =  $request->input('status');
+            $phone->remarks = $request->input('remarks');
+            $phone->update();
+
+            return redirect('dashboard/master/supplier/edit/'.$id);
+        }
+
+    }
+
+    public function deletePhone($id, $pic_id, $phone_id)
+    {
+        $pics = Profile::findOrFail($pic_id);
+        $phone = PhoneNumber::findOrFail($phone_id);
+        $phone->delete();
+        $pics->phone()->detach($phone_id);
+
+        return redirect('dashboard/master/supplier/edit/'.$id);
     }
 
     public function addBank(request $request)

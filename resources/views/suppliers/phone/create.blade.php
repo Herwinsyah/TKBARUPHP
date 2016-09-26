@@ -26,7 +26,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">@lang('supplier.create.header.title')</h3>
         </div>
-        <form class="form-horizontal" action="{{ route('db.master.supplier.pic.phone.create', $id) }}" method="post">
+        <form class="form-horizontal" action="{{ route('db.master.supplier.pic.phone.create', array('id' => $id, 'pic_id' => $pic_id )) }}" method="post">
             {{ csrf_field() }}
             <div class="row">
                 <div class="col-sm-12">
@@ -64,7 +64,7 @@
                 <div class="form-group">
                     <label for="inputButton" class="col-sm-2 control-label"></label>
                     <div class="col-sm-10">
-                        <a href="{{ route('db.master.supplier.pic.phone.store', $id) }}" class="btn btn-default">@lang('buttons.cancel_button')</a>
+                        <a href="{{ route('db.master.supplier.edit', $id) }}" class="btn btn-default">@lang('buttons.cancel_button')</a>
                         <button class="btn btn-default" type="submit">@lang('buttons.submit_button')</button>
                     </div>
                 </div>

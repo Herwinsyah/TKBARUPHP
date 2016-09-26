@@ -39,7 +39,11 @@ return [
     'edit.label.bank.account' => 'Account',
     'edit.label.bank.remarks' => 'Remarks',
     'edit.label.bank.action' => 'Action',
-
+    'edit.pic.title' => 'Edit Pic',
+    'edit.pic.page_title' => 'Pic',
+    'edit.pic.header.title' => 'Edit Pic',
+    'edit.phone.title' => 'Edit Phone',
+    
     'edit.label.product.type' => 'Type',
     'edit.label.product.code' => 'Code',
     'edit.label.product.name' => 'Name',

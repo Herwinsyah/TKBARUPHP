@@ -48,6 +48,12 @@ class Profile extends Model
     {
         return $this->belongsTo('\App\User');
     }
+
+    public function phone()
+    {
+        return $this->belongsToMany('App\PhoneNumber', 'phone_number_pic', 'pic_id', 'phone_number_id');
+    }
+
     public function supplier()
     {
     	return $this->belongsToMany('App\Supplier', 'supplier_pic', 'supplier_id', 'pic_id');

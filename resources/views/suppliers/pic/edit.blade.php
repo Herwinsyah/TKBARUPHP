@@ -1,11 +1,11 @@
 @extends('layouts.adminlte.master')
 
 @section('title')
-    @lang('supplier.create.phone.title')
+    @lang('supplier.edit.pic.title')
 @endsection
 
 @section('page_title')
-    <span class="fa fa-umbrella fa-fw"></span>&nbsp;@lang('supplier.create.phone.page_title')
+    <span class="fa fa-umbrella fa-fw"></span>&nbsp;@lang('supplier.edit.pic.page_title')
 @endsection
 @section('page_title_desc')
     @lang('supplier.index.page_title_desc')
@@ -24,10 +24,11 @@
     @endif
     <div class="box box-info">
         <div class="box-header with-border">
-            <h3 class="box-title">@lang('supplier.create.header.title')</h3>
+            <h3 class="box-title">@lang('supplier.edit.pic.header.title')</h3>
         </div>
-        {!! Form::model($pic, ['method' => 'PATCH','route' => ['db.master.supplier.pic.update', array('id' => $id, 'pic_id' => $pic_id)], 'class' => 'form-horizontal']) !!}
+        <form action="{{ route('db.master.supplier.pic.update', array('id' => $id, 'pic_id' => $pic_id)) }}" method="post" class="form-horizontal">
             {{ csrf_field() }}
+            <input type="hidden" name="_method" value="patch">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">

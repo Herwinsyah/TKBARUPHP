@@ -121,9 +121,11 @@
                                                     </a>
                                                     <div class="pull-right">
                                                         <a class="btn btn-xs btn-primary" href="{{ route('db.master.supplier.pic.edit',  array('id' => $supplier->id, 'pic_id' => $pic->id)) }}"><span class="fa fa-pencil fa-fw"></span></a>
-                                                        {!! Form::open(['method' => 'DELETE', 'route' => ['db.master.supplier', ], 'style'=>'display:inline'])  !!}
+                                                        <form action="{{ route('db.master.supplier.pic.delete', array('id' => $supplier->id, 'pic_id' => $pic->id )) }}" method="post" style="display:inline">
+                                                            {{ csrf_field() }}
+                                                            <input type="hidden" name="_method" value="delete">
                                                             <button type="submit" class="btn btn-xs btn-danger"><span class="fa fa-close fa-fw"></span></button>
-                                                        {!! Form::close() !!}
+                                                        </form>
                                                     </div>
                                               </h4>
                                         </div><br>
@@ -158,7 +160,7 @@
                                                         <div class="form-group">
                                                             <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.label.pic.phone-list')</label>
                                                             <div class="col-sm-10">
-                                                                <a href="{{ route('db.master.supplier.pic.phone.create', $pic->id) }}">
+                                                                <a href="{{ route('db.master.supplier.pic.phone.create', array('id' => $supplier->id , 'pic_id' => $pic->id)) }}">
                                                                     <button class="btn btn-primary"><i class="fa fa-plus"></i> @lang('supplier.edit.button.add')</button></a>
                                                                 <table class="table datatable-basic table-striped table-bordered">
                                                                     <thead>
@@ -171,24 +173,23 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        @foreach($phones as $phone)
-                                                                        <tr>
-                                                                            @foreach($phone->phone as $item)
+                                                                            @foreach($pic->phone as $item)
                                                                                 <tr>
                                                                             <th>{{ $item->provider->name }}</th>
                                                                             <th>{{ $item->number }}</th>
                                                                             <th class="text-center">@lang('lookup.' . $item->status)</th>
                                                                             <th>{{ $item->remarks }}</th>
                                                                             <th class="text-center">
-                                                                            <a class="btn btn-xs btn-primary" href=""><span class="fa fa-pencil fa-fw"></span></a>
-                                                                            {!! Form::open(['method' => 'DELETE', 'route' => ['db.master.supplier', ], 'style'=>'display:inline'])  !!}
+                                                                            <a class="btn btn-xs btn-primary" href="{{ route('db.master.supplier.pic.phone.edit', array('id' => $supplier->id, 'pic_id' => $pic->id, 'phone_id' => $item->id )) }}""><span class="fa fa-pencil fa-fw"></span></a>
+                                                                            <form action="{{ route('db.master.supplier.pic.phone.delete', array('id' => $supplier->id, 'pic_id' => $pic->id, 'phone_id' => $item->id )) }}" method="post" style="display:inline">
+                                                                                {{ csrf_field() }}
+                                                                                <input type="hidden" name="_method" value="delete">
                                                                                 <button type="submit" class="btn btn-xs btn-danger"><span class="fa fa-close fa-fw"></span></button>
-                                                                            {!! Form::close() !!}
+                                                                            </form
                                                                         </th>
                                                                             <tr>
                                                                             @endforeach
                                                                             </tr>
-                                                                            @endforeach
                                                                         
                                                                     </tbody>
                                                                 </table>

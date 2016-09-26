@@ -50,7 +50,10 @@ return [
     'edit.label.bank.account' => 'No. Akun',
     'edit.label.bank.remarks' => 'Catatan',
     'edit.label.bank.action' => 'Aksi',
-
+    'edit.pic.title' => 'Edit Pic',
+    'edit.pic.page_title' => 'Pic',
+    'edit.pic.header.title' => 'Edit Pic',
+    'edit.phone.title' => 'Edit Telepon',
     'edit.label.product.type' => 'Tipe',
     'edit.label.product.code' => 'Kode',
     'edit.label.product.name' => 'Nama',

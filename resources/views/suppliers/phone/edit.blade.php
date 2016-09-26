@@ -1,7 +1,7 @@
 @extends('layouts.adminlte.master')
 
 @section('title')
-    @lang('supplier.create.phone.title')
+    @lang('supplier.edit.phone.title')
 @endsection
 
 @section('page_title')
@@ -24,9 +24,10 @@
     @endif
     <div class="box box-info">
         <div class="box-header with-border">
-            <h3 class="box-title">@lang('supplier.create.header.title')</h3>
+            <h3 class="box-title">@lang('supplier.edit.phone.title')</h3>
         </div>
-        <form class="form-horizontal" action="{{ route('db.master.supplier.pic.phone.create', $id) }}" method="post">
+        <form class="form-horizontal" action="{{ route('db.master.supplier.pic.phone.update', array('id' => $id, 'pic_id' => $pic_id, 'phone_id' => $phone_id)) }}" method="post">
+            <input type="hidden" name="_method" value="patch">
             {{ csrf_field() }}
             <div class="row">
                 <div class="col-sm-12">
@@ -43,7 +44,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">@lang('supplier.create.label.phone.number')</label>
                         <div class="col-sm-9"> 
-                            <input type="number" name="number" class="form-control">
+                            <input type="number" name="number" class="form-control" value="{{ $phone->number }}">
                         </div>
                     </div>
                     <div class="form-group">
@@ -55,7 +56,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">@lang('supplier.create.label.phone.remarks')</label>
                         <div class="col-sm-9"> 
-                            <input type="text" name="remarks" class="form-control">
+                            <input type="text" name="remarks" class="form-control" value="{{ $phone->remarks }}">
                         </div>
                     </div>
                 </div>
@@ -64,7 +65,7 @@
                 <div class="form-group">
                     <label for="inputButton" class="col-sm-2 control-label"></label>
                     <div class="col-sm-10">
-                        <a href="{{ route('db.master.supplier.pic.phone.store', $id) }}" class="btn btn-default">@lang('buttons.cancel_button')</a>
+                        <a href="{{ route('db.master.supplier.edit', $id) }}" class="btn btn-default">@lang('buttons.cancel_button')</a>
                         <button class="btn btn-default" type="submit">@lang('buttons.submit_button')</button>
                     </div>
                 </div>
