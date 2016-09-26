@@ -13,9 +13,9 @@ class CreatePicPhoneTable extends Migration
      */
     public function up()
     {
-        Schema::create('phone_number_pic', function (Blueprint $table) {
+        Schema::create('pic_phone_number', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('pic_id');
+            $table->integer('profile_id');
             $table->integer('phone_number_id');
         });
     }

@@ -32,19 +32,19 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">@lang('supplier.edit.label.pic.first-name')</label>
+                        <label class="col-sm-2 control-label">@lang('supplier.edit.field.pic.first-name')</label>
                         <div class="col-sm-9"> 
                             <input type="text" name="first_name" class="form-control" value="{{ $pic->first_name }}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">@lang('supplier.edit.label.pic.last-name')</label>
+                        <label class="col-sm-2 control-label">@lang('supplier.edit.field.pic.last-name')</label>
                         <div class="col-sm-9"> 
                             <input type="text" name="last_name" class="form-control" value="{{$pic->last_name}}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">@lang('supplier.edit.label.pic.address')</label>
+                        <label class="col-sm-2 control-label">@lang('supplier.edit.field.pic.address')</label>
                         <div class="col-sm-9">
                             <textarea name="address" class="form-control"></textarea>
                         </div>

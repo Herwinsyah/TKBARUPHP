@@ -25,7 +25,7 @@ class Supplier extends Model
 
     public function pic()
     {
-        return $this->belongsToMany('App\Profile', 'supplier_pic', 'supplier_id', 'pic_id');
+        return $this->belongsToMany('App\Profile', 'supplier_pic', 'supplier_id', 'profile_id');
     }
     public function bank()
     {

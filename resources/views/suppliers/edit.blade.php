@@ -40,28 +40,28 @@
                     {!! Form::model($supplier, ['method' => 'PATCH','route' => ['db.master.supplier.edit', $supplier->id], 'class' => 'form-horizontal']) !!}
                         <div class="box-body">
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                                <label for="inputSupplierName" class="col-sm-2 control-label">@lang('supplier.edit.label.name')</label>
+                                <label for="inputSupplierName" class="col-sm-2 control-label">@lang('supplier.edit.field.name')</label>
                                 <div class="col-sm-10">
                                     <input id="inputSupplierName" name="name" type="text" class="form-control" value="{{ $supplier->supplier_name }}" placeholder="Supplier Name">
                                     <span class="help-block">{{ $errors->has('name') ? $errors->first('name') : '' }}</span>
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('address') ? 'has-error' : '' }}">
-                                <label for="inputAddress" class="col-sm-2 control-label">@lang('supplier.edit.label.address')</label>
+                                <label for="inputAddress" class="col-sm-2 control-label">@lang('supplier.edit.field.address')</label>
                                 <div class="col-sm-10">
                                     <textarea id="inputAddress" class="form-control" rows="5" name="address">{{ $supplier->supplier_address }}</textarea>
                                     <span class="help-block">{{ $errors->has('address') ? $errors->first('address') : '' }}</span>
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('city') ? 'has-error' : '' }}">
-                                <label for="inputCity" class="col-sm-2 control-label">@lang('supplier.edit.label.city')</label>
+                                <label for="inputCity" class="col-sm-2 control-label">@lang('supplier.edit.field.city')</label>
                                 <div class="col-sm-10">
                                     <textarea id="inputCity" class="form-control" rows="5" name="city">{{ $supplier->supplier_city }}</textarea>
                                     <span class="help-block">{{ $errors->has('city') ? $errors->first('city') : '' }}</span>
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('phone_number') ? 'has-error' : '' }}">
-                                <label for="inputPhone" class="col-sm-2 control-label">@lang('supplier.edit.label.phone')</label>
+                                <label for="inputPhone" class="col-sm-2 control-label">@lang('supplier.edit.field.phone')</label>
                                 <div class="col-sm-10">
                                     <input id="inputPhone" name="phone_number" type="text" class="form-control" value="{{ $supplier->phone_number }}" placeholder="Phone Number">
                                     <span class="help-block">{{ $errors->has('phone_number') ? $errors->first('phone_number') : '' }}</span>
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputTax" class="col-sm-2 control-label">@lang('supplier.edit.label.tax')</label>
+                                <label for="inputTax" class="col-sm-2 control-label">@lang('supplier.edit.field.tax')</label>
                                 <div class="col-sm-10">
                                     <input id="inputTax" name="tax_id" type="text" class="form-control" value="{{ $supplier->tax_id }}" placeholder="Tax ID">
                                 </div>
@@ -87,7 +87,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputRemarks" class="col-sm-2 control-label">@lang('supplier.edit.label.remarks')</label>
+                                <label for="inputRemarks" class="col-sm-2 control-label">@lang('supplier.edit.field.remarks')</label>
                                 <div class="col-sm-10">
                                     <input id="inputRemarks" name="remarks" type="text" class="form-control" value="{{ $supplier->remarks }}" placeholder="Remarks">
                                 </div>
@@ -134,7 +134,7 @@
                                                 <div class="col-sm-12">
                                                     <div class="box-body">
                                                         <div class="form-group">
-                                                            <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.label.pic.first-name')</label>
+                                                            <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.field.pic.first-name')</label>
                                                             <div class="col-sm-10">
                                                                 <label id="inputId" class="control-label">
                                                                     <span class="control-label-normal">{{ $pic->first_name }}</span>
@@ -142,7 +142,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.label.pic.last-name')</label>
+                                                            <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.field.pic.last-name')</label>
                                                             <div class="col-sm-10">
                                                                 <label id="inputId" class="control-label">
                                                                     <span class="control-label-normal">{{ $pic->last_name }}</span>
@@ -150,7 +150,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.label.pic.address')</label>
+                                                            <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.field.pic.address')</label>
                                                             <div class="col-sm-10">
                                                                 <label id="inputId" class="control-label">
                                                                     <span class="control-label-normal">{{ $pic->address }}</span>
@@ -158,7 +158,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.label.pic.phone-list')</label>
+                                                            <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.field.pic.phone-list')</label>
                                                             <div class="col-sm-10">
                                                                 <a href="{{ route('db.master.supplier.pic.phone.create', array('id' => $supplier->id , 'pic_id' => $pic->id)) }}">
                                                                     <button class="btn btn-primary"><i class="fa fa-plus"></i> @lang('supplier.edit.button.add')</button></a>
@@ -219,10 +219,10 @@
                                     <thead>
                                         <tr>
                                             <th>Bank</th>
-                                            <th>@lang('supplier.edit.label.bank.account')</th>
-                                            <th>@lang('supplier.edit.label.bank.remarks')</th>
+                                            <th>@lang('supplier.edit.field.bank.account')</th>
+                                            <th>@lang('supplier.edit.field.bank.remarks')</th>
                                             <th>Status</th>
-                                            <th>@lang('supplier.edit.label.bank.action')</th>
+                                            <th>@lang('supplier.edit.field.bank.action')</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -237,10 +237,12 @@
                                             <th>Inactive</th>
                                             @endif
                                             <th class="text-center">
-                                                <a class="btn btn-xs btn-primary" href="{{ route('db.master.supplier.bank.edit', $bank->id) }}"><span class="fa fa-pencil fa-fw"></span></a>
-                                                {!! Form::open(['method' => 'DELETE', 'route' => ['db.master.supplier.bank.delete', $bank->id], 'style'=>'display:inline'])  !!}
+                                                <a class="btn btn-xs btn-primary" href="{{ route('db.master.supplier.bank.edit', array('id' => $supplier->id, 'bank_id' => $bank->id)) }}"><span class="fa fa-pencil fa-fw"></span></a>
+                                                <form action="{{ route('db.master.supplier.bank.delete', array('id' => $supplier->id, 'bank_id' => $bank->id )) }}" method="post" style="display:inline">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="_method" value="delete">
                                                     <button type="submit" class="btn btn-xs btn-danger"><span class="fa fa-close fa-fw"></span></button>
-                                                {!! Form::close() !!}
+                                                </form>
                                             </th>
                                         </tr>
                                         @endforeach
@@ -258,10 +260,10 @@
                                 <table class="table datatable-basic table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>@lang('supplier.edit.label.product.type')</th>
-                                            <th>@lang('supplier.edit.label.product.code')</th>
-                                            <th>@lang('supplier.edit.label.product.name')</th>
-                                            <th>@lang('supplier.edit.label.product.description')</th>
+                                            <th>@lang('supplier.edit.field.product.type')</th>
+                                            <th>@lang('supplier.edit.field.product.code')</th>
+                                            <th>@lang('supplier.edit.field.product.name')</th>
+                                            <th>@lang('supplier.edit.field.product.description')</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
@@ -288,10 +290,10 @@
                     <div class="tab-pane active" id="tab-1">
                         <div class="panel">
                             <div class="panel-body">
-                                <form class="form-horizontal" action="{{ route('db.master.supplier.setting.store')}}" method="post">
+                                <form class="form-horizontal" action="{{ route('db.master.supplier.setting.store', $supplier->id)}}" method="post">
                                     {{ csrf_field() }}
                                     <div class="form-group">
-                                        <label for="inputDueDay" class="col-sm-2 text-right">@lang('supplier.edit.label.setting.due-day')</label>
+                                        <label for="inputDueDay" class="col-sm-2 text-right">@lang('supplier.edit.field.setting.due-day')</label>
                                         <div class="col-sm-9">
                                             <input type="number" name="due_day" class="form-control">
                                             <input type="hidden" class="form-control" name="supplier_id" value="{{ $supplier->id }}">
@@ -324,19 +326,19 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">@lang('supplier.edit.label.pic.first-name')</label>
+                                    <label class="col-sm-2 control-label">@lang('supplier.edit.field.pic.first-name')</label>
                                     <div class="col-sm-9">
                                         <input type="text" name="first_name" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">@lang('supplier.edit.label.pic.last-name')</label>
+                                    <label class="col-sm-2 control-label">@lang('supplier.edit.field.pic.last-name')</label>
                                     <div class="col-sm-9">
                                         <input type="text" name="last_name" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">@lang('supplier.edit.label.pic.address')</label>
+                                    <label class="col-sm-2 control-label">@lang('supplier.edit.field.pic.address')</label>
                                     <div class="col-sm-9">
                                         <textarea id="inputAddress" class="form-control" rows="5" name="address"></textarea>
                                     </div>
@@ -366,7 +368,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">@lang('supplier.edit.label.bank.name')</label>
+                                    <label class="col-sm-2 control-label">@lang('supplier.edit.field.bank.name')</label>
                                     <div class="col-sm-9">
                                         <select name="bank_id" class="form-control">
                                             @foreach($banks as $bank)
@@ -376,13 +378,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">@lang('supplier.edit.label.bank.account')</label>
+                                    <label class="col-sm-2 control-label">@lang('supplier.edit.field.bank.account')</label>
                                     <div class="col-sm-9">
                                         <input type="number" name="account" class="form-control" placeholder="Bank Account Number">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">@lang('supplier.edit.label.bank.remarks')</label>
+                                    <label class="col-sm-2 control-label">@lang('supplier.edit.field.bank.remarks')</label>
                                     <div class="col-sm-9">
                                         <input type="text" name="remarks" class="form-control">
                                     </div>

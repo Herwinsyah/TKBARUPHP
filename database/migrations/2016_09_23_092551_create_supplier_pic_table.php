@@ -16,7 +16,7 @@ class CreateSupplierPicTable extends Migration
         Schema::create('supplier_pic', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('supplier_id');
-            $table->integer('pic_id');
+            $table->integer('profile_id');
             //
         });
     }
@@ -28,6 +28,6 @@ class CreateSupplierPicTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('supplier_pic');
     }
 }

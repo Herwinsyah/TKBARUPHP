@@ -18,7 +18,6 @@ use App\BankAccount;
 use App\SupplierSetting;
 use App\Lookup;
 
-use URL;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
@@ -135,7 +134,7 @@ class SupplierController extends Controller
                 $ic->update();
         $supplier = Supplier::find($id);
         $supplier->pic()->attach($profile->id);
-        return redirect('dashboard/master/supplier/edit/'.$id);
+        return redirect(route('db.master.supplier.edit', $id));
     }
 
     public function editPic($id, $pic_id)
@@ -155,7 +154,7 @@ class SupplierController extends Controller
             $profile->address = $request->input('address');
             $profile->update();
 
-            return redirect('dashboard/master/supplier/edit/'.$id);
+            return redirect(route('db.master.supplier.edit', $id));
         }
     }
 
@@ -167,7 +166,7 @@ class SupplierController extends Controller
         $supplier = Supplier::findOrFail($id);
         $supplier->pic()->detach($pic_id);
 
-        return redirect('dashboard/master/supplier/edit/'.$id);
+        return redirect(route('db.master.supplier.edit', $id));
     }
 
     public function createPhone($id, $pic_id)
@@ -197,7 +196,7 @@ class SupplierController extends Controller
         $phone = PhoneNumber::create($data);
         $pics->phone()->attach($phone->id);
 
-        return redirect('dashboard/master/supplier/edit/'.$id);
+        return redirect(route('db.master.supplier.edit', $id));
     }
 
     public function editPhone($id, $pic_id, $phone_id)
@@ -224,7 +223,7 @@ class SupplierController extends Controller
             $phone->remarks = $request->input('remarks');
             $phone->update();
 
-            return redirect('dashboard/master/supplier/edit/'.$id);
+            return redirect(route('db.master.supplier.edit', $id));
         }
 
     }
@@ -236,10 +235,10 @@ class SupplierController extends Controller
         $phone->delete();
         $pics->phone()->detach($phone_id);
 
-        return redirect('dashboard/master/supplier/edit/'.$id);
+        return redirect(route('db.master.supplier.edit', $id));
     }
 
-    public function addBank(request $request)
+    public function addBank(Request $request)
     {
         $this->validate($request,[
             'bank_id' => 'required',
@@ -256,57 +255,58 @@ class SupplierController extends Controller
         $supplier_id = $request->input('supplier_id');
         $bank = BankAccount::create($data);
         $bank->supplier()->attach($supplier_id);
-        return redirect(URL::previous());
+        return redirect(route('db.master.supplier.edit', $supplier_id));
     }
 
-    public function editBank($id) {
-        $bank_account = BankAccount::find($id);
+    public function editBank($id, $bank_id) {
+        $bank_account = BankAccount::find($bank_id);
         $banks = Bank::all();
         $statusDDL = Lookup::where('category', '=', 'STATUS')->get()->pluck('description', 'code');
 
-        return view('suppliers.bank.edit', compact('bank_account', 'banks', 'statusDDL'));
+        return view('suppliers.bank.edit', compact('bank_account', 'banks', 'statusDDL', 'id'));
     }
 
-    public function updateBank(Request $request, $id) {
+    public function updateBank(Request $request, $id, $bank_id) {
         $this->validate($request,[
             'bank_id' => 'required',
             'account' => 'required|string|max:255',
             'status' => 'required',
         ]);
 
-        $bank_account = BankAccount::findOrFail($id);
+        $bank_account = BankAccount::findOrFail($bank_id);
 
         if ($bank_account) {
             $bank_account->bank_id = $request->input('bank_id');
-            $bank_account->account = $request->input('account');
+            $bank_account->account_number = $request->input('account');
             $bank_account->remarks = $request->input('remarks');
             $bank_account->status = $request->input('status');
             $bank_account->update();
         }
 
-        return redirect(URL::previous());
+        return redirect(route('db.master.supplier.edit', $id));
     }
 
-    public function deleteBank($id)
+    public function deleteBank($id, $bank_id)
     {
-        $bank = BankAccount::findOrFail($id);
+        $bank = BankAccount::findOrFail($bank_id);
         $bank->delete();
-        return redirect(URL::previous());
+        $bank->supplier()->detach($id);
+        return redirect(route('db.master.supplier.edit', $id));
     }
 
-    public function addSetting(Request $request)
+    public function addSetting(Request $request, $id)
     {
         $this->validate($request,[
             'due_day' => 'required',
         ]);
 
-        $data = [
-            'supplier_id' => $request->input('supplier_id'),
-            'due_day' => $request->input('due_day'),
-        ];
+        $supplier = Supplier::findOrFail($id);
 
-        SupplierSetting::create($data);
+        if ($supplier) {
+            $supplier->due_day = $request->input('due_day');
+            $supplier->update();
+        }
 
-        return redirect(URL::previous());
+        return redirect(route('db.master.supplier.edit', $id));
     }
 }

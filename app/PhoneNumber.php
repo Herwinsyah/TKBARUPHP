@@ -21,11 +21,6 @@ class PhoneNumber extends Model
 
 	protected $fillable = ['phone_provider_id', 'number', 'status', 'remarks'];
 
-	public function pic()
-    {
-    	return $this->belongsToMany('App\Pic');
-    }
-
     public function provider()
     {
     	return $this->belongsTo('App\PhoneProvider', 'phone_provider_id');

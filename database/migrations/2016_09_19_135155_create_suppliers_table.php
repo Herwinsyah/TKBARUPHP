@@ -23,6 +23,7 @@ class CreateSuppliersTable extends Migration
             $table->string('tax_id')->nullable();
             $table->string('remarks');
             $table->string('status');
+            $table->string('due_day')->nullable();
             $table->timestamps();
         });
     }

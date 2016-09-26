@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">Name</label>
+                        <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.field.name')</label>
                         <div class="col-sm-10">
                             <label id="inputId" class="control-label">
                                 <span class="control-label-normal">{{ $supplier->supplier_name }}</span>
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputAddress" class="col-sm-2 control-label">Address</label>
+                        <label for="inputAddress" class="col-sm-2 control-label">@lang('supplier.edit.field.address')</label>
                         <div class="col-sm-10">
                             <label id="inputAddress" class="control-label control-label-normal">
                                 <span class="control-label-normal">{{ $supplier->supplier_address }}</span>
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputPhone" class="col-sm-2 control-label">Phone</label>
+                        <label for="inputPhone" class="col-sm-2 control-label">@lang('supplier.edit.field.phone')</label>
                         <div class="col-sm-10">
                             <label id="inputPhone" class="control-label control-label-normal">
                                 <span class="control-label-normal">{{ $supplier->phone_number }}</span>
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputTaxId" class="col-sm-2 control-label">Tax ID</label>
+                        <label for="inputTaxId" class="col-sm-2 control-label">@lang('supplier.edit.field.tax')</label>
                         <div class="col-sm-10">
                             <label id="inputTaxId" class="control-label control-label-normal">
                                 <span class="control-label-normal">{{ $supplier->tax_id }}</span>
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputRemarks" class="col-sm-2 control-label">Remarks</label>
+                        <label for="inputRemarks" class="col-sm-2 control-label">@lang('supplier.edit.field.remarks')</label>
                         <div class="col-sm-10">
                             <label id="inputRemarks" class="control-label control-label-normal">
                                 <span class="control-label-normal">{{ $supplier->remarks }}</span>

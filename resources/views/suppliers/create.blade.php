@@ -31,28 +31,28 @@
             {{ csrf_field() }}
             <div class="box-body">
                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                    <label for="inputSupplierName" class="col-sm-2 control-label">Name</label>
+                    <label for="inputSupplierName" class="col-sm-2 control-label">@lang('supplier.edit.field.name')</label>
                     <div class="col-sm-10">
                         <input id="inputSupplierName" name="name" type="text" class="form-control" value="{{ old('name') }}" placeholder="Supplier Name">
                         <span class="help-block">{{ $errors->has('name') ? $errors->first('name') : '' }}</span>
                     </div>
                 </div>
                 <div class="form-group {{ $errors->has('address') ? 'has-error' : '' }}">
-                    <label for="inputAddress" class="col-sm-2 control-label">Address</label>
+                    <label for="inputAddress" class="col-sm-2 control-label">@lang('supplier.edit.field.address')</label>
                     <div class="col-sm-10">
                         <textarea id="inputAddress" class="form-control" rows="5" name="address">{{ old('address') }}</textarea>
                         <span class="help-block">{{ $errors->has('address') ? $errors->first('address') : '' }}</span>
                     </div>
                 </div>
                 <div class="form-group {{ $errors->has('city') ? 'has-error' : '' }}">
-                    <label for="inputCity" class="col-sm-2 control-label">City</label>
+                    <label for="inputCity" class="col-sm-2 control-label">@lang('supplier.edit.field.city')</label>
                     <div class="col-sm-10">
                         <textarea id="inputCity" class="form-control" rows="5" name="city">{{ old('city') }}</textarea>
                         <span class="help-block">{{ $errors->has('city') ? $errors->first('city') : '' }}</span>
                     </div>
                 </div>
                 <div class="form-group {{ $errors->has('phone_number') ? 'has-error' : '' }}">
-                    <label for="inputPhone" class="col-sm-2 control-label">Phone</label>
+                    <label for="inputPhone" class="col-sm-2 control-label">@lang('supplier.edit.field.remarks')</label>
                     <div class="col-sm-10">
                         <input id="inputPhone" name="phone_number" type="text" class="form-control" value="{{ old('phone_num') }}" placeholder="Phone Number">
                         <span class="help-block">{{ $errors->has('phone_number') ? $errors->first('phone_number') : '' }}</span>

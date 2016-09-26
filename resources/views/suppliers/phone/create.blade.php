@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">@lang('supplier.create.label.phone.provider')</label>
+                        <label class="col-sm-2 control-label">@lang('supplier.create.field.phone.provider')</label>
                         <div class="col-sm-9"> 
                             <select name="provider" class="form-control">
                                 @foreach($phone_provider as $provider)
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">@lang('supplier.create.label.phone.number')</label>
+                        <label class="col-sm-2 control-label">@lang('supplier.create.field.phone.number')</label>
                         <div class="col-sm-9"> 
                             <input type="number" name="number" class="form-control">
                         </div>
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">@lang('supplier.create.label.phone.remarks')</label>
+                        <label class="col-sm-2 control-label">@lang('supplier.create.field.phone.remarks')</label>
                         <div class="col-sm-9"> 
                             <input type="text" name="remarks" class="form-control">
                         </div>

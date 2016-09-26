@@ -1,11 +1,11 @@
 @extends('layouts.adminlte.master')
 
 @section('title')
-    @lang('supplier.edit.label.heading.bank')
+    @lang('supplier.edit.field.heading.bank')
 @endsection
 
 @section('page_title')
-    <span class="fa fa-umbrella fa-fw"></span>&nbsp;@lang('supplier.edit.label.heading.bank')
+    <span class="fa fa-umbrella fa-fw"></span>&nbsp;@lang('supplier.edit.field.heading.bank')
 @endsection
 @section('page_title_desc')
     @lang('supplier.index.page_title_desc')
@@ -24,12 +24,14 @@
     @endif
 	<div class="box box-info">
 		<div class="box-header with-border">
-            <h3 class="box-title">@lang('supplier.edit.label.heading.bank')</h3>
+            <h3 class="box-title">@lang('supplier.edit.field.heading.bank')</h3>
         </div>
-        {!! Form::model($bank_account, ['method' => 'PATCH','route' => ['db.master.supplier.bank.update', $bank_account->id], 'class' => 'form-horizontal']) !!}
+        <form class="form-horizontal" method="post" action="{{route('db.master.supplier.bank.update', array('id' => $id, 'bank_id' => $bank_account->id))}}">
+        <input type="hidden" name="_method" value="patch">
+        {{ csrf_field() }}
         <div class="box-body">
             <div class="form-group {{ $errors->has('bank') ? 'has-error' : '' }}">
-                <label for="inputBankName" class="col-sm-2 control-label">@lang('supplier.edit.label.bank.name')</label>
+                <label for="inputBankName" class="col-sm-2 control-label">@lang('supplier.edit.field.bank.name')</label>
                 <div class="col-sm-10">
                     <select id="inputBank" name="bank_id" class="form-control">
 	                    @foreach($banks as $bank)
@@ -40,14 +42,14 @@
                 </div>
             </div>
             <div class="form-group {{ $errors->has('account') ? 'has-error' : '' }}">
-                <label for="inputAccount" class="col-sm-2 control-label">@lang('supplier.edit.label.bank.account')</label>
+                <label for="inputAccount" class="col-sm-2 control-label">@lang('supplier.edit.field.bank.account')</label>
                 <div class="col-sm-10">
                     <input id="inputAccount" class="form-control" rows="5" name="account" value="{{ $bank_account->account_number }}">
                     <span class="help-block">{{ $errors->has('account') ? $errors->first('account') : '' }}</span>
                 </div>
             </div>
 			<div class="form-group {{ $errors->has('remarks') ? 'has-error' : '' }}">
-                <label for="inputremarks" class="col-sm-2 control-label">@lang('supplier.edit.label.bank.remarks')</label>
+                <label for="inputremarks" class="col-sm-2 control-label">@lang('supplier.edit.field.bank.remarks')</label>
                 <div class="col-sm-10">
                     <input id="inputRemarks" class="form-control" rows="5" name="remarks" value="{{ $bank_account->remarks }}">
                     <span class="help-block">{{ $errors->has('remarks') ? $errors->first('remarks') : '' }}</span>
@@ -67,6 +69,6 @@
                 </div>
             </div>
         </div>
-		{!! Form::close() !!}
+        </form>
 	</div>
 @endsection
