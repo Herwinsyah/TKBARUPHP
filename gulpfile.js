@@ -28,12 +28,14 @@ elixir(function(mix) {
         'admin-lte/dist/css/skins/_all-skins.min.css',
         'icheck/skins/square/blue.css',
     ], 'public/adminlte/css/adminlte.css', 'node_modules')
+        .copy('resources/assets/css/adminlte.custom.css', 'public/adminlte/css')
         .scripts([
             'jquery/dist/jquery.min.js',
             'bootstrap/dist/js/bootstrap.min.js',
             'admin-lte/dist/js/app.min.js',
             'icheck/icheck.min.js'
         ], 'public/adminlte/js/app.js', 'node_modules')
+        .copy('resources/assets/js/adminlte.custom.js', 'public/adminlte/js')
         .copy('node_modules/bootstrap/fonts', 'public/adminlte/fonts')
         .copy('node_modules/font-awesome/fonts', 'public/adminlte/fonts')
         .copy('node_modules/ionicons/dist/fonts', 'public/adminlte/fonts')

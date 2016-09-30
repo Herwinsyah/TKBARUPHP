@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Validator;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ class ProductController extends Controller
     public function index()
     {
         $product = Product::paginate(10);
+
         return view('product.index')->with('productlist', $product);
     }
 
@@ -39,6 +41,17 @@ class ProductController extends Controller
 
     public function store(Request $data)
     {
+        if(Input::get('store')) {
+            $this->dbStore($data);
+        } elseif(Input::get('addunit')) {
+            $this->addUnit($data);
+        } elseif (Input::get('deleteunit')) {
+            $this->deleteUnit($data);
+        }
+    }
+
+    private function dbStore(Request $data)
+    {
         $validator = Validator::make($data->all(), [
             'type' => 'required|string|max:255',
             'name' => 'required|string|max:255',
@@ -53,6 +66,7 @@ class ProductController extends Controller
 
             $product = new Product;
 
+            $product->store_id = Auth::user()->store->id;
             $product->product_type_id = $data['type'];
             $product->name = $data['name'];
             $product->short_code = $data['short_code'];
@@ -66,13 +80,25 @@ class ProductController extends Controller
         }
     }
 
+    private function addUnit(Request $data)
+    {
+
+    }
+
+    private function deleteUnit(Request $data)
+    {
+
+    }
+
     public function edit($id)
     {
         $product = Product::find($id);
 
         $statusDDL = Lookup::where('category', '=', 'STATUS')->get()->pluck('description', 'code');
+        $prodtypeDdL = ProductType::get()->pluck('name', 'id');
+        $selected = $product->type->id;
 
-        return view('product.edit', compact('product', 'statusDDL'));
+        return view('product.edit', compact('product', 'statusDDL', 'prodtypeDdL', 'selected'));
     }
 
     public function update($id, Request $req)
