@@ -5,7 +5,7 @@
 @endsection
 
 @section('page_title')
-    <span class="fa fa-umbrella fa-fw"></span>&nbsp;@lang('supplier.index.page_title')
+    <span class="fa fa-file-text-o fa-fw"></span>&nbsp;@lang('supplier.index.page_title')
 @endsection
 @section('page_title_desc')
     @lang('supplier.index.page_title_desc')
@@ -160,8 +160,9 @@
                                                         <div class="form-group">
                                                             <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.field.pic.phone-list')</label>
                                                             <div class="col-sm-10">
-                                                                <a href="{{ route('db.master.supplier.pic.phone.create', array('id' => $supplier->id , 'pic_id' => $pic->id)) }}">
-                                                                    <button class="btn btn-primary"><i class="fa fa-plus"></i> @lang('supplier.edit.button.add')</button></a>
+                                                                {{-- <a href="{{ route('db.master.supplier.pic.phone.create', array('id' => $supplier->id , 'pic_id' => $pic->id)) }}">
+                                                                    <button class="btn btn-primary"><i class="fa fa-plus"></i> @lang('supplier.edit.button.add')</button></a> --}}
+                                                                <button class="btn btn-primary" data-toggle="modal" href="#phone-modal{{$pic->id}}"><i class="fa fa-plus"></i> @lang('supplier.edit.button.add')</button>
                                                                 <table class="table datatable-basic table-striped table-bordered">
                                                                     <thead>
                                                                         <tr>
@@ -199,6 +200,58 @@
                                                 </div>
                                               </div>
                                         </div>
+                                        <div class="modal fade" id="phone-modal{{$pic->id}}">
+                                            <div class="modal-dialog fixed-footer modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <h4 class="text-left">Add Phone</h4>
+                                                    </div>
+                                                    <div class="modal-body scroller">
+                                                        <form class="form-horizontal" action="{{ route('db.master.supplier.pic.phone.store', array('id' => $supplier->id, 'pic_id' => $pic->id )) }}" method="post">
+                                                            {{ csrf_field() }}
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-2 control-label">@lang('supplier.create.field.phone.provider')</label>
+                                                                        <div class="col-sm-9"> 
+                                                                            <select name="provider" class="form-control">
+                                                                                @foreach($phone_provider as $provider)
+                                                                                    <option value="{{ $provider->id }}">{{ $provider->name }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-2 control-label">@lang('supplier.create.field.phone.number')</label>
+                                                                        <div class="col-sm-9"> 
+                                                                            <input type="number" name="number" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-2 control-label">Status</label>
+                                                                        <div class="col-sm-9"> 
+                                                                        {{ Form::select('status', $statusDDL, null, array('class' => 'form-control', 'placeholder' => 'Please Select')) }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-2 control-label">@lang('supplier.create.field.phone.remarks')</label>
+                                                                        <div class="col-sm-9"> 
+                                                                            <input type="text" name="remarks" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="supplier_id" value="{{ $supplier->id }}">
+                                                            </div>
+                                                            <div class="text-right">
+                                                                <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary btn-flat">Send</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         @endforeach
                                     </div>
                                 </div>
@@ -231,11 +284,7 @@
                                             <th>{{ $bank->bank->name }}</th>
                                             <th>{{ $bank->account_number }}</th>
                                             <th>{{ $bank->remarks }}</th>
-                                            @if($bank->status == 1)
-                                            <th>Active</th>
-                                            @else
-                                            <th>Inactive</th>
-                                            @endif
+                                            <th class="text-center">@lang('lookup.' . $supplier->status)</th>
                                             <th class="text-center">
                                                 <a class="btn btn-xs btn-primary" href="{{ route('db.master.supplier.bank.edit', array('id' => $supplier->id, 'bank_id' => $bank->id)) }}"><span class="fa fa-pencil fa-fw"></span></a>
                                                 <form action="{{ route('db.master.supplier.bank.delete', array('id' => $supplier->id, 'bank_id' => $bank->id )) }}" method="post" style="display:inline">
@@ -389,20 +438,20 @@
                                         <input type="text" name="remarks" class="form-control">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Status</label>
+                                <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
+                                    <label for="inputStatus" class="col-sm-2 control-label">Status</label>
                                     <div class="col-sm-9">
-                                        <select name="status" class="form-control">
-                                            <option value="1">Active</option>
-                                            <option value="0">Inactive</option>
-                                        </select>
+                                    {{ Form::select('status', $statusDDL, null, array('class' => 'form-control', 'placeholder' => 'Please Select')) }}
+                                        <span class="help-block">{{ $errors->has('status') ? $errors->first('status') : '' }}</span>
                                     </div>
                                 </div>
                             </div>
                             <input type="hidden" name="supplier_id" value="{{ $supplier->id }}">
                         </div>
-                        <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary btn-flat">Send</button>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary btn-flat">Send</button>
+                        </div>
                     </form>
                 </div>
             </div>
