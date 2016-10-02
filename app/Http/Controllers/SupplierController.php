@@ -139,9 +139,8 @@ class SupplierController extends Controller
             $supplier->update();
 
             if ($request->has('due_day')) {
-                $setting = Supplier::find($supplier->id);
-                $setting->due_day = $request->input('due_day');
-                $setting->update();
+                $supplier->due_day = $request->input('due_day');
+                $supplier->update();
             }
 
             return redirect(route('db.master.supplier'));
@@ -327,22 +326,6 @@ class SupplierController extends Controller
         $bank = BankAccount::findOrFail($bank_id);
         $bank->delete();
         $bank->supplier()->detach($id);
-        return redirect(route('db.master.supplier.edit', $id));
-    }
-
-    public function addSetting(Request $request, $id)
-    {
-        $this->validate($request,[
-            'due_day' => 'required',
-        ]);
-
-        $supplier = Supplier::findOrFail($id);
-
-        if ($supplier) {
-            $supplier->due_day = $request->input('due_day');
-            $supplier->update();
-        }
-
         return redirect(route('db.master.supplier.edit', $id));
     }
 }

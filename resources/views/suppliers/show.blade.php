@@ -81,11 +81,7 @@
                                 <label for="inputStatus" class="col-sm-2 control-label">Status</label>
                                 <div class="col-sm-10">
                                     <label id="inputTaxId" class="control-label control-label-normal">
-                                        @if ($supplier->status == 1)
-                                        <span class="control-label-normal">@lang('supplier.status.true')</span>
-                                        @else
-                                        <span class="control-label-normal">@lang('supplier.status.false')</span>
-                                        @endif
+                                        <span class="control-label-normal">@lang('lookup.' . $supplier->status)</span>
                                     </label>
                                 </div>
                             </div>

@@ -35,72 +35,64 @@
                 <li><a href="#tab-4" data-toggle="tab">@lang('supplier.edit.page.tab-product')</a></li>
                 <li><a href="#tab-5" data-toggle="tab">@lang('supplier.edit.page.tab-setting')</a></li>
             </ul>
+            {!! Form::model($supplier, ['method' => 'PATCH','route' => ['db.master.supplier.edit', $supplier->id], 'class' => 'form-horizontal']) !!}
             <div class="tab-content">
                 <div class="tab-pane active" id="tab-1">
-                    {!! Form::model($supplier, ['method' => 'PATCH','route' => ['db.master.supplier.edit', $supplier->id], 'class' => 'form-horizontal']) !!}
-                        <div class="box-body">
-                            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                                <label for="inputSupplierName" class="col-sm-2 control-label">@lang('supplier.edit.field.name')</label>
-                                <div class="col-sm-10">
-                                    <input id="inputSupplierName" name="name" type="text" class="form-control" value="{{ $supplier->supplier_name }}" placeholder="Supplier Name">
-                                    <span class="help-block">{{ $errors->has('name') ? $errors->first('name') : '' }}</span>
-                                </div>
-                            </div>
-                            <div class="form-group {{ $errors->has('address') ? 'has-error' : '' }}">
-                                <label for="inputAddress" class="col-sm-2 control-label">@lang('supplier.edit.field.address')</label>
-                                <div class="col-sm-10">
-                                    <textarea id="inputAddress" class="form-control" rows="5" name="address">{{ $supplier->supplier_address }}</textarea>
-                                    <span class="help-block">{{ $errors->has('address') ? $errors->first('address') : '' }}</span>
-                                </div>
-                            </div>
-                            <div class="form-group {{ $errors->has('city') ? 'has-error' : '' }}">
-                                <label for="inputCity" class="col-sm-2 control-label">@lang('supplier.edit.field.city')</label>
-                                <div class="col-sm-10">
-                                    <textarea id="inputCity" class="form-control" rows="5" name="city">{{ $supplier->supplier_city }}</textarea>
-                                    <span class="help-block">{{ $errors->has('city') ? $errors->first('city') : '' }}</span>
-                                </div>
-                            </div>
-                            <div class="form-group {{ $errors->has('phone_number') ? 'has-error' : '' }}">
-                                <label for="inputPhone" class="col-sm-2 control-label">@lang('supplier.edit.field.phone')</label>
-                                <div class="col-sm-10">
-                                    <input id="inputPhone" name="phone_number" type="text" class="form-control" value="{{ $supplier->phone_number }}" placeholder="Phone Number">
-                                    <span class="help-block">{{ $errors->has('phone_number') ? $errors->first('phone_number') : '' }}</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputFax" class="col-sm-2 control-label">Fax</label>
-                                <div class="col-sm-10">
-                                    <input id="inputFax" name="fax_num" type="text" class="form-control" value="{{ $supplier->fax_num }}" placeholder="Fax">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputTax" class="col-sm-2 control-label">@lang('supplier.edit.field.tax')</label>
-                                <div class="col-sm-10">
-                                    <input id="inputTax" name="tax_id" type="text" class="form-control" value="{{ $supplier->tax_id }}" placeholder="Tax ID">
-                                </div>
-                            </div>
-                            <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
-                                <label for="inputStatus" class="col-sm-2 control-label">Status</label>
-                                <div class="col-sm-10">
-                                {{ Form::select('status', $statusDDL, null, array('class' => 'form-control', 'placeholder' => 'Please Select')) }}
-                                    <span class="help-block">{{ $errors->has('status') ? $errors->first('status') : '' }}</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputRemarks" class="col-sm-2 control-label">@lang('supplier.edit.field.remarks')</label>
-                                <div class="col-sm-10">
-                                    <input id="inputRemarks" name="remarks" type="text" class="form-control" value="{{ $supplier->remarks }}" placeholder="Remarks">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputButton" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-                                    <a href="{{ route('db.master.supplier') }}" class="btn btn-default">Cancel</a>
-                                    <button class="btn btn-default" type="submit">Submit</button>
-                                </div>
+                    <div class="box-body">
+                        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                            <label for="inputSupplierName" class="col-sm-2 control-label">@lang('supplier.edit.field.name')</label>
+                            <div class="col-sm-10">
+                                <input id="inputSupplierName" name="name" type="text" class="form-control" value="{{ $supplier->supplier_name }}" placeholder="Supplier Name">
+                                <span class="help-block">{{ $errors->has('name') ? $errors->first('name') : '' }}</span>
                             </div>
                         </div>
-                    {!! Form::close() !!}
+                        <div class="form-group {{ $errors->has('address') ? 'has-error' : '' }}">
+                            <label for="inputAddress" class="col-sm-2 control-label">@lang('supplier.edit.field.address')</label>
+                            <div class="col-sm-10">
+                                <textarea id="inputAddress" class="form-control" rows="5" name="address">{{ $supplier->supplier_address }}</textarea>
+                                <span class="help-block">{{ $errors->has('address') ? $errors->first('address') : '' }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('city') ? 'has-error' : '' }}">
+                            <label for="inputCity" class="col-sm-2 control-label">@lang('supplier.edit.field.city')</label>
+                            <div class="col-sm-10">
+                                <textarea id="inputCity" class="form-control" rows="5" name="city">{{ $supplier->supplier_city }}</textarea>
+                                <span class="help-block">{{ $errors->has('city') ? $errors->first('city') : '' }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('phone_number') ? 'has-error' : '' }}">
+                            <label for="inputPhone" class="col-sm-2 control-label">@lang('supplier.edit.field.phone')</label>
+                            <div class="col-sm-10">
+                                <input id="inputPhone" name="phone_number" type="text" class="form-control" value="{{ $supplier->phone_number }}" placeholder="Phone Number">
+                                <span class="help-block">{{ $errors->has('phone_number') ? $errors->first('phone_number') : '' }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputFax" class="col-sm-2 control-label">Fax</label>
+                            <div class="col-sm-10">
+                                <input id="inputFax" name="fax_num" type="text" class="form-control" value="{{ $supplier->fax_num }}" placeholder="Fax">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputTax" class="col-sm-2 control-label">@lang('supplier.edit.field.tax')</label>
+                            <div class="col-sm-10">
+                                <input id="inputTax" name="tax_id" type="text" class="form-control" value="{{ $supplier->tax_id }}" placeholder="Tax ID">
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
+                            <label for="inputStatus" class="col-sm-2 control-label">Status</label>
+                            <div class="col-sm-10">
+                            {{ Form::select('status', $statusDDL, null, array('class' => 'form-control', 'placeholder' => 'Please Select')) }}
+                                <span class="help-block">{{ $errors->has('status') ? $errors->first('status') : '' }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputRemarks" class="col-sm-2 control-label">@lang('supplier.edit.field.remarks')</label>
+                            <div class="col-sm-10">
+                                <input id="inputRemarks" name="remarks" type="text" class="form-control" value="{{ $supplier->remarks }}" placeholder="Remarks">
+                            </div>
+                        </div>
+                    </div>
                     <div class="pull-right"></div>
                     <div class="clearfix"></div>
                 </div>
@@ -160,8 +152,6 @@
                                                         <div class="form-group">
                                                             <label for="inputName" class="col-sm-2 control-label">@lang('supplier.edit.field.pic.phone-list')</label>
                                                             <div class="col-sm-10">
-                                                                {{-- <a href="{{ route('db.master.supplier.pic.phone.create', array('id' => $supplier->id , 'pic_id' => $pic->id)) }}">
-                                                                    <button class="btn btn-primary"><i class="fa fa-plus"></i> @lang('supplier.edit.button.add')</button></a> --}}
                                                                 <button class="btn btn-primary" data-toggle="modal" href="#phone-modal{{$pic->id}}"><i class="fa fa-plus"></i> @lang('supplier.edit.button.add')</button>
                                                                 <table class="table datatable-basic table-striped table-bordered">
                                                                     <thead>
@@ -348,16 +338,21 @@
                                             <input type="hidden" class="form-control" name="supplier_id" value="{{ $supplier->id }}">
                                         </div>
                                     </div>
-                                    <div class="form-group text-center">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </div>
                                 </form>
                             </div>
                         </div>
                         <hr>
                     </div>
                 </div>
+                <div class="form-group" style="padding-bottom:10px;">
+                    <label for="inputButton" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <a href="{{ route('db.master.supplier') }}" class="btn btn-default">Cancel</a>
+                        <button class="btn btn-default" type="submit">Submit</button>
+                    </div>
+                </div>
             </div>
+            {!! Form::close() !!}
         </div>
     </div>
     
@@ -457,6 +452,4 @@
             </div>
         </div>
     </div>
-
-    
 @endsection
